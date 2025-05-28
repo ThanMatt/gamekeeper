@@ -1,6 +1,6 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, z, type RenderedContent } from "astro:content";
 import { fetchBGGGameData } from "./api";
-import { SUPPORTED_GAMES } from "./utils/consts";
+import { EMPTY_BOARD_GAME_DATA, SUPPORTED_GAMES } from "./lib/consts";
 
 const boardGameSchema = z.object({
   id: z.string(),
@@ -15,18 +15,16 @@ const boardGameSchema = z.object({
   rating: z.number(),
   weight: z.number(),
   rank: z.number(),
+  usersRated: z.number(),
 });
 
 export type BoardGame = z.infer<typeof boardGameSchema>;
 const boardGames = defineCollection({
   loader: async () => {
     const supportedGames: BoardGame[] = [];
-    console.log("wow");
     for (const game of SUPPORTED_GAMES) {
-      console.log("🚀 ~ loader: ~ game:", game);
       try {
         const boardGame = await fetchBGGGameData(game.id);
-        console.log("🚀 ~ loader: ~ boardGame:", boardGame);
 
         if (!boardGame) throw null;
 
@@ -35,18 +33,9 @@ const boardGames = defineCollection({
         await new Promise((resolve) => setTimeout(resolve, 1000));
       } catch (error) {
         supportedGames.push({
+          ...EMPTY_BOARD_GAME_DATA,
           id: game.id,
           name: game.name,
-          description: "Description unavailable",
-          image: null,
-          thumbnail: null,
-          yearPublished: null,
-          minPlayers: 0,
-          maxPlayers: 0,
-          playingTime: 0,
-          rating: 0,
-          weight: 0,
-          rank: 0,
         });
       }
     }
@@ -54,5 +43,14 @@ const boardGames = defineCollection({
   },
   schema: boardGameSchema,
 });
+
+export type BoardGameCollection = {
+  id: string;
+  body?: string;
+  collection: "boardGames";
+  data: BoardGame;
+  rendered?: RenderedContent;
+  filePath?: string;
+};
 
 export const collections = { boardGames };

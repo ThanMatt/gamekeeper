@@ -1,0 +1,60 @@
+---
+// components/DataGrid.astro
+import { cn } from "@/lib/utils";
+
+export interface Props<T> {
+  data: T[];
+  renderItem: (item: T, index: number) => any;
+  emptyContent?: string;
+  gridClassName?: string;
+  gridCols?: {
+    default?: number;
+    sm?: number;
+    md?: number;
+    lg?: number;
+    xl?: number;
+    "2xl"?: number;
+  };
+  gridGap?: number | string;
+}
+
+const {
+  data,
+  renderItem,
+  emptyContent = "No data found...",
+  gridClassName,
+  gridCols = {
+    default: 1,
+    md: 3,
+    lg: 4,
+  },
+  gridGap = 6,
+} = Astro.props as Props<any>;
+---
+
+<div>
+  <div
+    class={cn(
+      "grid",
+      gridCols.default ? `grid-cols-${gridCols.default}` : "",
+      gridCols.sm ? `sm:grid-cols-${gridCols.sm}` : "",
+      gridCols.md ? `md:grid-cols-${gridCols.md}` : "",
+      gridCols.lg ? `lg:grid-cols-${gridCols.lg}` : "",
+      gridCols["2xl"] ? `2xl:grid-cols-${gridCols["2xl"]}` : "",
+      gridGap ? `gap-${gridGap}` : "",
+      gridClassName
+    )}
+  >
+    {
+      data.length ? (
+        data.map((item, index) => (
+          <div>
+            <Fragment set:html={renderItem(item, index)} />
+          </div>
+        ))
+      ) : (
+        <div class="text-gray-500">{emptyContent}</div>
+      )
+    }
+  </div>
+</div>

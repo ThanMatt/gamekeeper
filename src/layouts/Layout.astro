@@ -1,3 +1,8 @@
+---
+import { H1, Lead } from "@/components/ui/typography";
+import "../styles/global.css";
+---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -7,16 +12,11 @@
     <meta name="generator" content={Astro.generator} />
     <title>Astro Basics</title>
   </head>
-  <body>
+  <body class="dark lg:container lg:mx-auto px-4">
+    <div class="text-center py-16">
+      <H1>Gamekeeper</H1>
+      <Lead>Your board game companion</Lead>
+    </div>
     <slot />
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>

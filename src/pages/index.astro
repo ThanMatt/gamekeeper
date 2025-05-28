@@ -1,23 +1,17 @@
 ---
 import { getCollection } from "astro:content";
-import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { BoardGameCard } from "@/components/BoardGameCard";
 
 const boardGames = await getCollection("boardGames");
 ---
 
 <Layout>
-  {
-    boardGames.map((boardGame) => {
-      return (
-        <div>
-          <p>{boardGame.data.name}</p>
-          <p>{boardGame.data.description}</p>
-        </div>
-      );
-    })
-  }
+  <div class="grid grid-cols-1 md:grid-cols-3 lg-grid-cols-4 gap-6">
+    {
+      boardGames.map((boardGame) => {
+        return <BoardGameCard boardGame={boardGame.data} />;
+      })
+    }
+  </div>
 </Layout>
