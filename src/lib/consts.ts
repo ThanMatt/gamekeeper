@@ -1,8 +1,7 @@
 export const SUPPORTED_GAMES = [
-  { id: "5", slug: "acquire", name: "Acquire" },
+  { id: "5", name: "Acquire" },
   {
     id: "150376",
-    slug: "dead-of-winter",
     name: "Dead of Winter: A Crossroads Game",
   },
   // :: Add more games here
@@ -21,4 +20,5 @@ export const EMPTY_BOARD_GAME_DATA = {
   weight: 0,
   rank: 0,
   usersRated: 0,
+  slug: null,
 };

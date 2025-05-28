@@ -1,0 +1,30 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import type { GetStaticPaths } from "astro";
+import { getCollection, getEntry, render } from "astro:content";
+
+export const getStaticPaths = (async () => {
+  const boardGames = await getCollection("boardGames");
+  const pages = [
+    ...boardGames.map((boardGame, index) => {
+      return {
+        ...boardGame,
+      };
+    }),
+  ];
+
+  return pages.map((page) => {
+    return {
+      params: { slug: page.data.slug },
+      props: { ...page },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const boardGame = Astro.props;
+const boardGameData = await getEntry("boardGames", boardGame.id);
+---
+
+<Layout>
+  <p>{boardGameData?.data.name}</p>
+</Layout>

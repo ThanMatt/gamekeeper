@@ -1,6 +1,7 @@
 import { defineCollection, z, type RenderedContent } from "astro:content";
 import { fetchBGGGameData } from "./api";
 import { EMPTY_BOARD_GAME_DATA, SUPPORTED_GAMES } from "./lib/consts";
+import { slugify } from "./lib/utils";
 
 const boardGameSchema = z.object({
   id: z.string(),
@@ -16,6 +17,7 @@ const boardGameSchema = z.object({
   weight: z.number(),
   rank: z.number(),
   usersRated: z.number(),
+  slug: z.string().optional().nullable(),
 });
 
 export type BoardGame = z.infer<typeof boardGameSchema>;
@@ -28,7 +30,10 @@ const boardGames = defineCollection({
 
         if (!boardGame) throw null;
 
-        supportedGames.push(boardGame);
+        supportedGames.push({
+          ...boardGame,
+          slug: slugify(boardGame.name, boardGame.id),
+        });
         // :: Add a small delay to be nice to BGG's API
         await new Promise((resolve) => setTimeout(resolve, 1000));
       } catch (error) {
@@ -36,6 +41,7 @@ const boardGames = defineCollection({
           ...EMPTY_BOARD_GAME_DATA,
           id: game.id,
           name: game.name,
+          slug: slugify(game.name, game.id),
         });
       }
     }
