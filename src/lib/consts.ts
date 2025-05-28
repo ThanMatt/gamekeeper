@@ -1,8 +1,20 @@
-export const SUPPORTED_GAMES = [
-  { id: "5", name: "Acquire" },
+import type { BoardGameManifest } from "@/types";
+
+export const SUPPORTED_GAMES: BoardGameManifest[] = [
   {
-    id: "150376",
-    name: "Dead of Winter: A Crossroads Game",
+    id: "5",
+    name: "Acquire",
+    plugins: [
+      {
+        name: "Banking assistant",
+        description:
+          "Monitor hotel chain stocks and stockholder bonuses easily",
+      },
+      {
+        name: "Player assistant",
+        description: "Monitor your value easily",
+      },
+    ],
   },
   // :: Add more games here
 ];
@@ -20,5 +32,4 @@ export const EMPTY_BOARD_GAME_DATA = {
   weight: 0,
   rank: 0,
   usersRated: 0,
-  slug: null,
 };

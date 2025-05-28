@@ -1,0 +1,23 @@
+---
+import { ClientRouter } from "astro:transitions";
+
+const {
+  title = "Gamekeeper",
+  description = "Your board game companion",
+  ogTitle,
+} = Astro.props;
+---
+
+<meta charset="utf-8" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<title>{title}</title>
+<meta name="description" content={description} />
+
+<!-- Open Graph tags -->
+<meta property="og:title" content={ogTitle ?? "Welcome to Gamekeeper"} />
+<meta property="og:type" content="website" />
+<meta property="og:description" content={description} />
+
+<meta name="view-transition" content="same-origin" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<ClientRouter />

@@ -1,17 +1,14 @@
 ---
 import { H1, Lead } from "@/components/ui/typography";
 import "../styles/global.css";
+import Head from "@/components/Head.astro";
+
+const { title = "Gamekeeper", description, ogTitle } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
-  </head>
+  <Head title={title} description={description} ogTitle={ogTitle} />
   <body class="dark lg:container lg:mx-auto px-4">
     <div class="text-center py-16">
       <H1>Gamekeeper</H1>

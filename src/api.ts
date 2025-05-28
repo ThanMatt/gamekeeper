@@ -1,12 +1,12 @@
-import type { BoardGame } from "./content.config";
 import { XMLParser } from "fast-xml-parser";
 import { EMPTY_BOARD_GAME_DATA } from "./lib/consts";
+import type { BoardGameData } from "./types";
 
 const BGG_URL = "https://boardgamegeek.com";
 
 export async function fetchBGGGameData(
   gameId: string
-): Promise<BoardGame | null> {
+): Promise<BoardGameData | null> {
   try {
     const response = await fetch(
       `${BGG_URL}/xmlapi2/thing?id=${gameId}&stats=1`

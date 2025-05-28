@@ -3,6 +3,11 @@ import { fetchBGGGameData } from "./api";
 import { EMPTY_BOARD_GAME_DATA, SUPPORTED_GAMES } from "./lib/consts";
 import { slugify } from "./lib/utils";
 
+const boardGamePluginSchema = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+});
+
 const boardGameSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -17,10 +22,12 @@ const boardGameSchema = z.object({
   weight: z.number(),
   rank: z.number(),
   usersRated: z.number(),
-  slug: z.string().optional().nullable(),
+  slug: z.string(),
+  plugins: z.array(boardGamePluginSchema),
 });
 
 export type BoardGame = z.infer<typeof boardGameSchema>;
+export type BoardGamePlugin = z.infer<typeof boardGamePluginSchema>;
 const boardGames = defineCollection({
   loader: async () => {
     const supportedGames: BoardGame[] = [];
@@ -33,6 +40,7 @@ const boardGames = defineCollection({
         supportedGames.push({
           ...boardGame,
           slug: slugify(boardGame.name, boardGame.id),
+          plugins: game.plugins ?? [],
         });
         // :: Add a small delay to be nice to BGG's API
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -42,6 +50,7 @@ const boardGames = defineCollection({
           id: game.id,
           name: game.name,
           slug: slugify(game.name, game.id),
+          plugins: [],
         });
       }
     }
