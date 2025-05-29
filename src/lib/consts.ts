@@ -10,11 +10,13 @@ export const SUPPORTED_GAMES: BoardGameManifest[] = [
         description:
           "Monitor hotel chain stocks and stockholder bonuses easily",
         componentId: Components.ACQUIRE_BANKING_ASSISTANT,
+        framework: "react",
       },
       {
         name: "Player assistant",
         description: "Monitor your value easily",
         componentId: Components.ACQUIRE_PLAYER_ASSISTANT,
+        framework: "react",
       },
     ],
   },

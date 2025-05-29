@@ -5,11 +5,11 @@ import type { BGGBoardGameData } from "./types";
 const BGG_URL = "https://boardgamegeek.com";
 
 export async function fetchBGGGameData(
-  gameId: string,
+  gameId: string
 ): Promise<BGGBoardGameData | null> {
   try {
     const response = await fetch(
-      `${BGG_URL}/xmlapi2/thing?id=${gameId}&stats=1`,
+      `${BGG_URL}/xmlapi2/thing?id=${gameId}&stats=1`
     );
     const xmlText = await response.text();
 
@@ -44,17 +44,17 @@ export async function fetchBGGGameData(
       playingTime: parseInt(item.playingtime?.["@_value"] ?? "0"),
       rating: parseFloat(item.statistics?.ratings?.average?.["@_value"] ?? "0"),
       weight: parseFloat(
-        item.statistics?.ratings?.averageweight?.["@_value"] ?? "0",
+        item.statistics?.ratings?.averageweight?.["@_value"] ?? "0"
       ),
       rank: parseInt(
         Array.isArray(item.statistics?.ratings?.ranks?.rank)
           ? (item.statistics.ratings.ranks.rank.find(
-              (r: any) => r["@_name"] === "boardgame",
+              (r: any) => r["@_name"] === "boardgame"
             )?.["@_value"] ?? "0")
-          : (item.statistics?.ratings?.ranks?.rank?.["@_value"] ?? "0"),
+          : (item.statistics?.ratings?.ranks?.rank?.["@_value"] ?? "0")
       ),
       usersRated: parseFloat(
-        item.statistics?.ratings?.usersrated?.["@_value"] ?? "0",
+        item.statistics?.ratings?.usersrated?.["@_value"] ?? "0"
       ),
     };
   } catch (error) {

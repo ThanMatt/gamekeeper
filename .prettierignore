@@ -1,0 +1,38 @@
+# Build outputs
+dist/
+.astro/
+.vercel/
+.netlify/
+
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Generated files
+coverage/
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.*
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Public assets (usually shouldn't be formatted)
+public/
+
+# Specific files that shouldn't be formatted
+CHANGELOG.md
+LICENSE

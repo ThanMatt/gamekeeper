@@ -1,107 +1,120 @@
 ---
-import type { BoardGame } from '@/content.config';
-import { Clock, Users } from '@lucide/astro'
+import type {BoardGame} from "@/content.config";
+import {Clock, Users} from "@lucide/astro";
 
 export interface Props {
   boardGame: BoardGame;
 }
 
-const { boardGame } = Astro.props;
+const {boardGame} = Astro.props;
 
 // Truncate description if it's too long
 const truncateDescription = (text: string, maxLength: number = 120) => {
   if (text.length <= maxLength) return text;
-  return text.slice(0, maxLength).trim() + '...';
+  return text.slice(0, maxLength).trim() + "...";
 };
 
-const description = boardGame.description 
+const description = boardGame.description
   ? truncateDescription(boardGame.description)
   : "Discover breathtaking landscapes, vibrant cities, and hidden gems that will inspire your next adventure.";
 ---
 
-<a href={`/games/${boardGame.slug}`} class="block group">
-  <div class="overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm hover:bg-accent/5 transition-colors">
+<a href={`/games/${boardGame.slug}`} class="group block">
+  <div
+    class="bg-card text-card-foreground hover:bg-accent/5 overflow-hidden rounded-lg border shadow-sm transition-colors">
     <!-- Game Image -->
     <div class="relative h-48 w-full overflow-hidden">
-      {boardGame.image ? (
-        <img
-          src={boardGame.image}
-          alt={`${boardGame.name} game cover`}
-          class="h-full w-full object-cover transition-transform group-hover:scale-105"
-          loading="lazy"
-        />
-      ) : (
-        <div class="h-full w-full bg-muted flex items-center justify-center">
-          <span class="text-muted-foreground text-sm">No image available</span>
-        </div>
-      )}
-      
+      {
+        boardGame.image ? (
+          <img
+            src={boardGame.image}
+            alt={`${boardGame.name} game cover`}
+            class="h-full w-full object-cover transition-transform group-hover:scale-105"
+            loading="lazy"
+          />
+        ) : (
+          <div class="bg-muted flex h-full w-full items-center justify-center">
+            <span class="text-muted-foreground text-sm">
+              No image available
+            </span>
+          </div>
+        )
+      }
+
       <!-- BGG Rating Badge (if available) -->
-      {boardGame.rating > 0 && (
-        <div class="absolute top-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-xs font-medium">
-          ⭐ {boardGame.rating.toFixed(1)}
-        </div>
-      )}
+      {
+        boardGame.rating > 0 && (
+          <div class="absolute top-2 right-2 rounded bg-black/70 px-2 py-1 text-xs font-medium text-white">
+            ⭐ {boardGame.rating.toFixed(1)}
+          </div>
+        )
+      }
     </div>
 
     <!-- Card Content -->
     <div class="p-4">
       <!-- Header -->
-      <div class="flex justify-between items-start mb-2">
+      <div class="mb-2 flex items-start justify-between">
         <div class="flex-1">
-          <h3 class="font-semibold text-lg leading-none tracking-tight mb-1">
+          <h3 class="mb-1 text-lg leading-none font-semibold tracking-tight">
             {boardGame.name}
-            {boardGame.yearPublished && (
-              <span class="text-muted-foreground font-normal">
-                ({boardGame.yearPublished})
-              </span>
-            )}
+            {
+              boardGame.yearPublished && (
+                <span class="text-muted-foreground font-normal">
+                  ({boardGame.yearPublished})
+                </span>
+              )
+            }
           </h3>
-          
-          <div class="flex items-center gap-3 text-sm text-muted-foreground">
-            {boardGame.playingTime > 0 && (
-              <span class="flex items-center gap-1">
-                <Clock class="h-4 w-4" />
-                {boardGame.playingTime} min
-              </span>
-            )}
-            
-            {boardGame.minPlayers > 0 && boardGame.maxPlayers > 0 && (
-              <span class="flex items-center gap-1">
-                <Users class="h-4 w-4" />
-                {boardGame.minPlayers === boardGame.maxPlayers 
-                  ? `${boardGame.minPlayers} players`
-                  : `${boardGame.minPlayers}-${boardGame.maxPlayers} players`
-                }
-              </span>
-            )}
+
+          <div class="text-muted-foreground flex items-center gap-3 text-sm">
+            {
+              boardGame.playingTime > 0 && (
+                <span class="flex items-center gap-1">
+                  <Clock class="h-4 w-4" />
+                  {boardGame.playingTime} min
+                </span>
+              )
+            }
+
+            {
+              boardGame.minPlayers > 0 && boardGame.maxPlayers > 0 && (
+                <span class="flex items-center gap-1">
+                  <Users class="h-4 w-4" />
+                  {boardGame.minPlayers === boardGame.maxPlayers
+                    ? `${boardGame.minPlayers} players`
+                    : `${boardGame.minPlayers}-${boardGame.maxPlayers} players`}
+                </span>
+              )
+            }
           </div>
         </div>
       </div>
 
       <!-- Description -->
-      <p class="text-sm text-muted-foreground leading-relaxed mb-3">
+      <p class="text-muted-foreground mb-3 text-sm leading-relaxed">
         {description}
       </p>
 
       <!-- Footer with additional info -->
-      <div class="flex justify-between items-center pt-2 border-t">
-        <div class="flex items-center gap-2 text-xs text-muted-foreground">
-          {boardGame.weight > 0 && (
-            <span title="Complexity">
-              🎯 {boardGame.weight.toFixed(1)}/5
-            </span>
-          )}
-          
-          {boardGame.rank > 0 && boardGame.rank <= 1000 && (
-            <span title="BGG Rank">
-              🏆 #{boardGame.rank}
-            </span>
-          )}
+      <div class="flex items-center justify-between border-t pt-2">
+        <div class="text-muted-foreground flex items-center gap-2 text-xs">
+          {
+            boardGame.weight > 0 && (
+              <span title="Complexity">🎯 {boardGame.weight.toFixed(1)}/5</span>
+            )
+          }
+
+          {
+            boardGame.rank > 0 && (
+              <span title="BGG Rank">🏆 #{boardGame.rank}</span>
+            )
+          }
         </div>
-        
-        <div class="text-xs text-muted-foreground">
-          {boardGame.plugins.length} {boardGame.plugins.length !== 1 ? 'tools' : 'tool'}
+
+        <div class="text-muted-foreground text-xs">
+          {boardGame.plugins.length}
+          {boardGame.plugins.length !== 1 ? "tools" : "tool"}
         </div>
       </div>
     </div>
@@ -113,19 +126,19 @@ const description = boardGame.description
   .group {
     height: 100%;
   }
-  
+
   .group > div {
     height: 100%;
     display: flex;
     flex-direction: column;
   }
-  
+
   .group .p-4 {
     flex: 1;
     display: flex;
     flex-direction: column;
   }
-  
+
   .group .p-4 > p {
     flex: 1;
   }

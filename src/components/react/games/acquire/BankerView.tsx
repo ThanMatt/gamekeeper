@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Plus, Minus, TrendingUp, Package } from "lucide-react";
 
+enum Tier {
+  BUDGET = "budget",
+  STANDARD = "standard",
+  PREMIUM = "premium",
+}
+
 export const BankerView = () => {
   const [gameMode, setGameMode] = useState("classic");
 
@@ -109,7 +115,7 @@ export const BankerView = () => {
     },
   };
 
-  const getPrice = (tier, tiles) => {
+  const getPrice = (tier, tiles: number) => {
     if (tiles < 2) return 0;
     const tierPrices = classicPrices[tier];
     const multiplier = gameMode === "tycoon" ? 10 : 1;
@@ -159,7 +165,7 @@ export const BankerView = () => {
       const newChains = [...prevChains];
       newChains[index].stock = Math.max(
         0,
-        Math.min(25, newChains[index].stock + delta),
+        Math.min(25, newChains[index].stock + delta)
       );
       return newChains;
     });
@@ -196,16 +202,16 @@ export const BankerView = () => {
 
     return (
       <div
-        className={`${chain.color} rounded-xl p-4 shadow-lg transform transition-all duration-200 hover:scale-[1.02] ${chain.safe ? "ring-4 ring-green-400" : ""}`}
+        className={`${chain.color} transform rounded-xl p-4 shadow-lg transition-all duration-200 hover:scale-[1.02] ${chain.safe ? "ring-4 ring-green-400" : ""}`}
       >
-        <div className={`text-xs opacity-60 text-center mb-1 ${textColor}`}>
+        <div className={`mb-1 text-center text-xs opacity-60 ${textColor}`}>
           {getTierName(chain.tier)} Chain
         </div>
 
-        <div className="flex justify-between items-center mb-3">
+        <div className="mb-3 flex items-center justify-between">
           <h3 className={`text-lg font-bold ${textColor}`}>{chain.name}</h3>
           <span
-            className={`px-2 py-1 rounded-md text-xs font-medium ${isYellow ? "bg-gray-900/20" : "bg-white/20"} ${textColor}`}
+            className={`rounded-md px-2 py-1 text-xs font-medium ${isYellow ? "bg-gray-900/20" : "bg-white/20"} ${textColor}`}
           >
             {chain.tiles >= 11
               ? "SAFE"
@@ -215,7 +221,7 @@ export const BankerView = () => {
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 mb-3">
+        <div className="mb-3 grid grid-cols-2 gap-2">
           <div
             className={`${isYellow ? "bg-gray-900/20" : "bg-black/30"} rounded-lg p-2 text-center`}
           >
@@ -236,7 +242,7 @@ export const BankerView = () => {
 
         {chain.tiles >= 2 ? (
           <div
-            className={`${isYellow ? "bg-gray-900/20" : "bg-black/20"} rounded-lg p-2 mb-3`}
+            className={`${isYellow ? "bg-gray-900/20" : "bg-black/20"} mb-3 rounded-lg p-2`}
           >
             <div className="grid grid-cols-3 gap-2">
               <div className="text-center">
@@ -271,7 +277,7 @@ export const BankerView = () => {
           </div>
         ) : (
           <div
-            className={`h-16 flex items-center justify-center ${textColor} opacity-50 text-xs`}
+            className={`flex h-16 items-center justify-center ${textColor} text-xs opacity-50`}
           >
             Chain needs 2+ tiles for value
           </div>
@@ -281,27 +287,27 @@ export const BankerView = () => {
           <div className="flex gap-2">
             <button
               onClick={() => modifyTiles(index, -1)}
-              className={`flex-1 py-2 rounded-lg font-medium transition-all ${
+              className={`flex-1 rounded-lg py-2 font-medium transition-all ${
                 isYellow
                   ? "bg-gray-900/20 hover:bg-gray-900/30"
                   : "bg-white/20 hover:bg-white/30"
               } ${textColor}`}
             >
-              <Minus className="w-4 h-4 mx-auto" />
+              <Minus className="mx-auto h-4 w-4" />
             </button>
             <button
               onClick={() => modifyTiles(index, 1)}
-              className={`flex-1 py-2 rounded-lg font-medium transition-all ${
+              className={`flex-1 rounded-lg py-2 font-medium transition-all ${
                 isYellow
                   ? "bg-gray-900/30 hover:bg-gray-900/40"
                   : "bg-white/30 hover:bg-white/40"
               } ${textColor}`}
             >
-              <Plus className="w-4 h-4 mx-auto" />
+              <Plus className="mx-auto h-4 w-4" />
             </button>
             <button
               onClick={() => toggleActive(index)}
-              className={`flex-1 py-2 px-3 rounded-lg font-medium text-xs transition-all ${
+              className={`flex-1 rounded-lg px-3 py-2 text-xs font-medium transition-all ${
                 chain.active
                   ? isYellow
                     ? "bg-gray-900/40"
@@ -318,29 +324,29 @@ export const BankerView = () => {
           <div className="flex gap-2">
             <button
               onClick={() => modifyStock(index, 1)}
-              className={`flex-1 py-2 rounded-lg font-medium transition-all ${
+              className={`flex-1 rounded-lg py-2 font-medium transition-all ${
                 isYellow
                   ? "bg-gray-900/20 hover:bg-gray-900/30"
                   : "bg-white/20 hover:bg-white/30"
               } ${textColor}`}
             >
-              <Minus className="w-4 h-4 mx-auto" />
+              <Minus className="mx-auto h-4 w-4" />
             </button>
             <button
               onClick={() => modifyStock(index, -1)}
-              className={`flex-1 py-2 rounded-lg font-medium transition-all ${
+              className={`flex-1 rounded-lg py-2 font-medium transition-all ${
                 isYellow
                   ? "bg-gray-900/30 hover:bg-gray-900/40"
                   : "bg-white/30 hover:bg-white/40"
               } ${textColor}`}
             >
-              <Plus className="w-4 h-4 mx-auto" />
+              <Plus className="mx-auto h-4 w-4" />
             </button>
             <button
               onClick={() =>
                 chain.active && chain.stock > 0 && modifyStock(index, -1)
               }
-              className={`flex-1 py-2 px-3 rounded-lg font-medium text-xs transition-all ${
+              className={`flex-1 rounded-lg px-3 py-2 text-xs font-medium transition-all ${
                 chain.active && chain.stock > 0
                   ? isYellow
                     ? "bg-gray-900/30 hover:bg-gray-900/40"
@@ -348,7 +354,7 @@ export const BankerView = () => {
                   : isYellow
                     ? "bg-gray-900/10"
                     : "bg-white/10"
-              } ${textColor} ${!chain.active || chain.stock === 0 ? "opacity-50 cursor-not-allowed" : ""}`}
+              } ${textColor} ${!chain.active || chain.stock === 0 ? "cursor-not-allowed opacity-50" : ""}`}
             >
               Buy Stock
             </button>
@@ -359,19 +365,19 @@ export const BankerView = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-4">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-4 flex items-center justify-center gap-2">
-          <TrendingUp className="w-8 h-8" />
+    <div className="min-h-screen bg-gray-900 p-4 text-white">
+      <div className="mx-auto max-w-2xl">
+        <h1 className="mb-4 flex items-center justify-center gap-2 text-center text-3xl font-bold">
+          <TrendingUp className="h-8 w-8" />
           Acquire Banker Assistant
         </h1>
 
-        <div className="flex justify-center mb-6 gap-3">
+        <div className="mb-6 flex justify-center gap-3">
           <button
             onClick={() => setGameMode("classic")}
-            className={`px-6 py-2 rounded-full font-medium transition-all ${
+            className={`rounded-full px-6 py-2 font-medium transition-all ${
               gameMode === "classic"
-                ? "bg-green-500 text-white transform scale-105"
+                ? "scale-105 transform bg-green-500 text-white"
                 : "bg-gray-700 text-gray-300 hover:bg-gray-600"
             }`}
           >
@@ -379,9 +385,9 @@ export const BankerView = () => {
           </button>
           <button
             onClick={() => setGameMode("tycoon")}
-            className={`px-6 py-2 rounded-full font-medium transition-all ${
+            className={`rounded-full px-6 py-2 font-medium transition-all ${
               gameMode === "tycoon"
-                ? "bg-green-500 text-white transform scale-105"
+                ? "scale-105 transform bg-green-500 text-white"
                 : "bg-gray-700 text-gray-300 hover:bg-gray-600"
             }`}
           >
@@ -389,32 +395,32 @@ export const BankerView = () => {
           </button>
         </div>
 
-        <div className="grid gap-4 mb-6">
+        <div className="mb-6 grid gap-4">
           {chains.map((chain, index) => (
             <ChainCard key={chain.name} chain={chain} index={index} />
           ))}
         </div>
 
-        <div className="bg-gray-800 rounded-xl p-4 mb-6">
-          <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-            <Package className="w-5 h-5" />
+        <div className="mb-6 rounded-xl bg-gray-800 p-4">
+          <h2 className="mb-4 flex items-center gap-2 text-xl font-bold">
+            <Package className="h-5 w-5" />
             Game Summary
           </h2>
           <div className="grid grid-cols-2 gap-3">
-            <div className="bg-gray-700 rounded-lg p-3 text-center">
-              <div className="text-xs text-gray-400 mb-1">Total Tiles</div>
+            <div className="rounded-lg bg-gray-700 p-3 text-center">
+              <div className="mb-1 text-xs text-gray-400">Total Tiles</div>
               <div className="text-2xl font-bold">{totalTiles}</div>
             </div>
-            <div className="bg-gray-700 rounded-lg p-3 text-center">
-              <div className="text-xs text-gray-400 mb-1">Active Chains</div>
+            <div className="rounded-lg bg-gray-700 p-3 text-center">
+              <div className="mb-1 text-xs text-gray-400">Active Chains</div>
               <div className="text-2xl font-bold">{activeChains}</div>
             </div>
-            <div className="bg-gray-700 rounded-lg p-3 text-center">
-              <div className="text-xs text-gray-400 mb-1">Stock Out</div>
+            <div className="rounded-lg bg-gray-700 p-3 text-center">
+              <div className="mb-1 text-xs text-gray-400">Stock Out</div>
               <div className="text-2xl font-bold">{totalStock}</div>
             </div>
-            <div className="bg-gray-700 rounded-lg p-3 text-center">
-              <div className="text-xs text-gray-400 mb-1">Safe Chains</div>
+            <div className="rounded-lg bg-gray-700 p-3 text-center">
+              <div className="mb-1 text-xs text-gray-400">Safe Chains</div>
               <div className="text-2xl font-bold">{safeChains}</div>
             </div>
           </div>
@@ -422,7 +428,7 @@ export const BankerView = () => {
 
         <button
           onClick={resetGame}
-          className="w-full py-4 bg-red-600 hover:bg-red-700 rounded-xl font-bold text-lg transition-all transform hover:scale-[1.02]"
+          className="w-full transform rounded-xl bg-red-600 py-4 text-lg font-bold transition-all hover:scale-[1.02] hover:bg-red-700"
         >
           Reset Game
         </button>

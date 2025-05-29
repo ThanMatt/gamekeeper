@@ -1,16 +1,16 @@
 ---
-import { H1, Lead } from "@/components/react/ui/typography";
+import {H1, Lead} from "@/components/react/ui/typography";
 import "../styles/global.css";
 import Head from "@/components/astro/Head.astro";
 
-const { title = "Gamekeeper", description, ogTitle } = Astro.props;
+const {title = "Gamekeeper", description, ogTitle} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <Head title={title} description={description} ogTitle={ogTitle} />
-  <body class="dark lg:container lg:mx-auto px-4">
-    <div class="text-center py-16">
+  <body class="dark px-4 lg:container lg:mx-auto">
+    <div class="py-16 text-center">
       <H1>Gamekeeper</H1>
       <Lead>Your board game companion</Lead>
     </div>

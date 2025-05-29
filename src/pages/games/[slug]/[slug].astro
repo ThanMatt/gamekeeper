@@ -1,36 +1,37 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import {ReactGamePluginAdapter} from '@/components/react/ReactGamePluginAdapter'
-import type { GetStaticPaths } from "astro";
-import { getCollection } from 'astro:content';
-import {H1} from '@/components/react/ui/typography'
+import {ReactGamePluginAdapter} from "@/components/react/ReactGamePluginAdapter";
+import type {GetStaticPaths} from "astro";
+import {getCollection} from "astro:content";
 
 const plugin = Astro.props;
 
 export const getStaticPaths = (async () => {
   const boardGames = await getCollection("boardGames");
   const pages = [];
-  
+
   // :: Generate paths for each plugin
   for (const boardGame of boardGames) {
     for (const plugin of boardGame.data.plugins) {
       pages.push({
-        params: { slug: plugin.slug }, // :: Make sure plugin has a slug
-        props: { 
+        params: {slug: plugin.slug}, // :: Make sure plugin has a slug
+        props: {
           ...plugin,
           gameSlug: boardGame.data.slug, // :: Include parent game info
-          gameName: boardGame.data.name
-        }
+          gameName: boardGame.data.name,
+        },
       });
     }
   }
-  
+
   return pages;
 }) satisfies GetStaticPaths;
-
 ---
 
 <Layout>
-  <H1>{plugin.name}</H1>
-  <ReactGamePluginAdapter plugin={plugin} client:load  />
+  {
+    plugin.framework === "react" && (
+      <ReactGamePluginAdapter plugin={plugin} client:load />
+    )
+  }
 </Layout>

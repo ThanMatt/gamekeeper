@@ -2,7 +2,6 @@ import { defineCollection, z, type RenderedContent } from "astro:content";
 import { fetchBGGGameData } from "./api";
 import { EMPTY_BOARD_GAME_DATA, SUPPORTED_GAMES } from "./lib/consts";
 import { slugify } from "./lib/utils";
-import { Components } from "./types";
 
 const boardGamePluginSchema = z.object({
   name: z.string(),
@@ -11,6 +10,7 @@ const boardGamePluginSchema = z.object({
     "acquire-banking-assistant",
     "acquire-player-assistant",
   ]),
+  framework: z.enum(["react", "svelte", "vue", "astro"]),
   slug: z.string(),
 });
 

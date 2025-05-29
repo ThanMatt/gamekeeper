@@ -1,13 +1,13 @@
 ---
-import { getCollection } from "astro:content";
+import {getCollection} from "astro:content";
 import Layout from "../layouts/Layout.astro";
-import BoardGameCard  from "@/components/astro/BoardGameCard.astro";
+import BoardGameCard from "@/components/astro/BoardGameCard.astro";
 
 const boardGames = await getCollection("boardGames");
 ---
 
 <Layout>
-  <div class="grid grid-cols-1 md:grid-cols-3 lg-grid-cols-4 gap-6">
+  <div class="lg-grid-cols-4 grid grid-cols-1 gap-6 md:grid-cols-3">
     {
       boardGames.map((boardGame) => {
         return <BoardGameCard boardGame={boardGame.data} />;

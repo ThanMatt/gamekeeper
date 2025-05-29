@@ -24,6 +24,7 @@ export type BoardGamePluginData = {
   name: string;
   description?: string;
   componentId: Components;
+  framework: Framework;
 };
 
 export enum Components {

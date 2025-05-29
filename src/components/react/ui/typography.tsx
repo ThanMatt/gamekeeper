@@ -11,9 +11,6 @@ type BaseProps<T> = React.HTMLAttributes<T> & {
 // :: Specific element props
 type HeadingProps = BaseProps<HTMLHeadingElement>;
 type ParagraphProps = BaseProps<HTMLParagraphElement>;
-type ListProps = BaseProps<HTMLUListElement> & {
-  items?: string[];
-};
 
 // H1 Component
 export const H1 = React.forwardRef<HTMLHeadingElement, HeadingProps>(
@@ -21,7 +18,7 @@ export const H1 = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     <h1
       ref={ref}
       className={cn(
-        "scroll-m-20 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl mb-4 sm:mb-6",
+        "mb-4 scroll-m-20 text-3xl font-extrabold tracking-tight sm:mb-6 sm:text-4xl lg:text-5xl",
         className
       )}
       {...props}
@@ -36,7 +33,7 @@ export const H2 = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     <h2
       ref={ref}
       className={cn(
-        "scroll-m-20 pb-1 sm:pb-2 font-sans text-2xl sm:text-3xl font-semibold tracking-tight first:mt-0 mb-3 sm:mb-4",
+        "mb-3 scroll-m-20 pb-1 font-sans text-2xl font-semibold tracking-tight first:mt-0 sm:mb-4 sm:pb-2 sm:text-3xl",
         className
       )}
       {...props}
@@ -51,7 +48,7 @@ export const H3 = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     <h3
       ref={ref}
       className={cn(
-        "scroll-m-20 text-xl sm:text-2xl font-sans font-semibold tracking-tight mb-2 sm:mb-3",
+        "mb-2 scroll-m-20 font-sans text-xl font-semibold tracking-tight sm:mb-3 sm:text-2xl",
         className
       )}
       {...props}
@@ -66,7 +63,7 @@ export const H4 = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     <h4
       ref={ref}
       className={cn(
-        "scroll-m-20 text-lg sm:text-xl font-sans font-semibold tracking-tight mb-2",
+        "mb-2 scroll-m-20 font-sans text-lg font-semibold tracking-tight sm:text-xl",
         className
       )}
       {...props}
@@ -83,7 +80,7 @@ export const TextContent = React.forwardRef<
   <p
     ref={ref}
     className={cn(
-      "leading-6 sm:leading-7 font-sans text-base [&:not(:first-child)]:mt-4 sm:[&:not(:first-child)]:mt-6",
+      "font-sans text-base leading-6 sm:leading-7 [&:not(:first-child)]:mt-4 sm:[&:not(:first-child)]:mt-6",
       className
     )}
     {...props}
@@ -98,7 +95,7 @@ export const Large = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("text-base sm:text-lg font-sans font-semibold", className)}
+    className={cn("font-sans text-base font-semibold sm:text-lg", className)}
     {...props}
   />
 ));
@@ -110,7 +107,7 @@ export const Small = React.forwardRef<HTMLElement, BaseProps<HTMLElement>>(
     <small
       ref={ref}
       className={cn(
-        "text-xs sm:text-sm font-medium leading-normal sm:leading-none",
+        "text-xs leading-normal font-medium sm:text-sm sm:leading-none",
         className
       )}
       {...props}
@@ -125,7 +122,7 @@ export const Subtle = React.forwardRef<HTMLParagraphElement, ParagraphProps>(
     <p
       ref={ref}
       className={cn(
-        "text-xs sm:text-sm text-muted-foreground leading-relaxed",
+        "text-muted-foreground text-xs leading-relaxed sm:text-sm",
         className
       )}
       {...props}
@@ -140,7 +137,7 @@ export const Lead = React.forwardRef<HTMLParagraphElement, ParagraphProps>(
     <p
       ref={ref}
       className={cn(
-        "text-lg sm:text-xl text-muted-foreground leading-relaxed",
+        "text-muted-foreground text-lg leading-relaxed sm:text-xl",
         className
       )}
       {...props}
@@ -157,7 +154,7 @@ export const Blockquote = React.forwardRef<
   <blockquote
     ref={ref}
     className={cn(
-      "mt-4 sm:mt-6 border-l-2 pl-4 sm:pl-6 italic [&>*]:text-muted-foreground",
+      "[&>*]:text-muted-foreground mt-4 border-l-2 pl-4 italic sm:mt-6 sm:pl-6",
       className
     )}
     {...props}

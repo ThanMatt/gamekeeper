@@ -1,31 +1,30 @@
 ---
-import type { BoardGamePluginManifest } from "@/content.config"
+import type {BoardGamePluginManifest} from "@/content.config";
 
 type BoardGamePluginCardProps = {
   plugin: BoardGamePluginManifest;
   boardGameSlug: string;
-}
+};
 
-
-const { plugin, boardGameSlug } = Astro.props as BoardGamePluginCardProps
+const {plugin, boardGameSlug} = Astro.props as BoardGamePluginCardProps;
 ---
 
-<a href={`/games/${boardGameSlug}/${plugin.slug}`} class="block group">
-  <div class="overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm hover:bg-accent/5 transition-colors">
-
+<a href={`/games/${boardGameSlug}/${plugin.slug}`} class="group block">
+  <div
+    class="bg-card text-card-foreground hover:bg-accent/5 overflow-hidden rounded-lg border shadow-sm transition-colors">
     <!-- Card Content -->
     <div class="p-4">
       <!-- Header -->
-      <div class="flex justify-between items-start mb-2">
+      <div class="mb-2 flex items-start justify-between">
         <div class="flex-1">
-          <h3 class="font-semibold text-lg leading-none tracking-tight mb-1">
+          <h3 class="mb-1 text-lg leading-none font-semibold tracking-tight">
             {plugin.name}
           </h3>
         </div>
       </div>
 
       <!-- Description -->
-      <p class="text-sm text-muted-foreground leading-relaxed mb-3">
+      <p class="text-muted-foreground mb-3 text-sm leading-relaxed">
         {plugin.description}
       </p>
     </div>

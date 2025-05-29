@@ -32,6 +32,6 @@ export function filterByFramework(framework: Framework) {
   return Object.fromEntries(
     Object.entries(COMPONENT_REGISTRY).filter(([, value]) => {
       return value.framework === framework;
-    }),
+    })
   ) as Record<Components, ComponentRegistryEntry>;
 }
