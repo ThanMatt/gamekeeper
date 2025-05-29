@@ -23,5 +23,17 @@ export type BoardGameManifest = {
 export type BoardGamePluginData = {
   name: string;
   description?: string;
-  component: string;
+  componentId: Components;
+};
+
+export enum Components {
+  ACQUIRE_BANKING_ASSISTANT = "acquire-banking-assistant",
+  ACQUIRE_PLAYER_ASSISTANT = "acquire-player-assistant",
+}
+
+export type Framework = "react" | "vue" | "svelte" | "astro";
+
+export type ComponentRegistryEntry = {
+  component: any; // :: Generic to accept any framework component
+  framework: Framework;
 };

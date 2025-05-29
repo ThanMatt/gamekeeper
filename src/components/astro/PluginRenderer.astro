@@ -1,0 +1,36 @@
+---
+import { BankerView } from "@/components/react/games/acquire/BankerView";
+import { PlayerView } from "@/components/react/games/acquire/PlayerView";
+
+export interface Props {
+  pluginId: string;
+  pluginName: string;
+}
+
+const { pluginId, pluginName } = Astro.props;
+
+// Map plugin IDs to components
+const getComponent = (id: string) => {
+  switch (id) {
+    case 'acquire-banking-assistant':
+      return { Component: BankerView, framework: 'react' };
+    case 'acquire-player-assistant':
+      return { Component: PlayerView, framework: 'react' };
+    default:
+      return null;
+  }
+};
+
+const result = getComponent(pluginId);
+---
+
+{result ? (
+  <div class="plugin-container">
+    <h2 class="text-xl font-semibold mb-4">{pluginName}</h2>
+    <result.Component />
+  </div>
+) : (
+  <div class="error">
+    Plugin not found: {pluginId}
+  </div>
+)}

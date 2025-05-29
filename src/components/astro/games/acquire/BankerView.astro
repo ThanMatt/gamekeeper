@@ -1,0 +1,537 @@
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .mode-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .mode-btn {
+            padding: 8px 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 20px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .mode-btn.active {
+            background-color: #4CAF50;
+            transform: scale(1.05);
+        }
+
+        .chain-grid {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .chain-card {
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .chain-card:active {
+            transform: scale(0.98);
+        }
+
+        .chain-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .chain-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .chain-size {
+            font-size: 14px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chain-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .info-box {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .info-label {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-bottom: 2px;
+        }
+
+        .info-value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .info-value.small {
+            font-size: 14px;
+        }
+
+        .pricing-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 10px;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .price-box {
+            text-align: center;
+        }
+
+        .price-label {
+            font-size: 10px;
+            opacity: 0.7;
+            margin-bottom: 2px;
+        }
+
+        .price-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            gap: 4px;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:active {
+            opacity: 0.8;
+        }
+
+        .btn-dec {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-inc {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .active {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .safe {
+            background-color: rgba(0, 255, 0, 0.3);
+        }
+
+        /* Chain Colors */
+        .sackson { background-color: #dc143c; }
+        .tower { background-color: #ffd700; }
+        .american { background-color: #000080; }
+        .festival { background-color: #228b22; }
+        .worldwide { background-color: #800080; }
+        .continental { background-color: #1e90ff; }
+        .imperial { background-color: #ff8c00; }
+
+        /* Dark text for light backgrounds */
+        .tower .chain-name,
+        .tower .info-value,
+        .tower .price-value,
+        .tower button {
+            color: #1a1a1a;
+        }
+
+        .summary {
+            background-color: #2a2a2a;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .summary h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .reset-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #dc143c;
+            font-size: 18px;
+        }
+
+        .tier-label {
+            font-size: 10px;
+            opacity: 0.6;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        @media (max-width: 400px) {
+            .chain-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .control-group {
+                min-width: 100%;
+            }
+        }
+    </style>
+
+<div>
+    <div class="mode-toggle">
+        <button class="mode-btn active" onclick="setMode('classic')">Classic Mode</button>
+        <button class="mode-btn" onclick="setMode('tycoon')">Tycoon Mode</button>
+    </div>
+    
+    <div class="chain-grid" id="chainGrid"></div>
+    
+    <div class="summary">
+        <h2>Game Summary</h2>
+        <div class="summary-grid">
+            <div class="info-box">
+                <div class="info-label">Total Tiles on Board</div>
+                <div class="info-value" id="totalTiles">0</div>
+            </div>
+            <div class="info-box">
+                <div class="info-label">Active Chains</div>
+                <div class="info-value" id="activeChains">0</div>
+            </div>
+            <div class="info-box">
+                <div class="info-label">Total Stock Out</div>
+                <div class="info-value" id="totalStock">0</div>
+            </div>
+            <div class="info-box">
+                <div class="info-label">Safe Chains</div>
+                <div class="info-value" id="safeChains">0</div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="reset-btn" onclick="resetGame()">Reset Game</button>
+
+    <script>
+        let gameMode = 'classic';
+        
+        const chains = [
+            { name: 'Sackson', color: 'sackson', tier: 1, tiles: 0, stock: 25, active: false, safe: false },
+            { name: 'Tower', color: 'tower', tier: 1, tiles: 0, stock: 25, active: false, safe: false },
+            { name: 'American', color: 'american', tier: 2, tiles: 0, stock: 25, active: false, safe: false },
+            { name: 'Festival', color: 'festival', tier: 2, tiles: 0, stock: 25, active: false, safe: false },
+            { name: 'Worldwide', color: 'worldwide', tier: 2, tiles: 0, stock: 25, active: false, safe: false },
+            { name: 'Continental', color: 'continental', tier: 3, tiles: 0, stock: 25, active: false, safe: false },
+            { name: 'Imperial', color: 'imperial', tier: 3, tiles: 0, stock: 25, active: false, safe: false }
+        ];
+
+        // Price tables for Classic mode
+        const classicPrices = {
+            1: { // Tier 1 (Sackson, Tower)
+                2: 200, 3: 300, 4: 400, 5: 500, 6: 600,
+                11: 700, 21: 800, 31: 900, 41: 1000
+            },
+            2: { // Tier 2 (American, Festival, Worldwide)
+                2: 300, 3: 400, 4: 500, 5: 600, 6: 700,
+                11: 800, 21: 900, 31: 1000, 41: 1100
+            },
+            3: { // Tier 3 (Continental, Imperial)
+                2: 400, 3: 500, 4: 600, 5: 700, 6: 800,
+                11: 900, 21: 1000, 31: 1100, 41: 1200
+            }
+        };
+
+        // Price tables for Tycoon mode (multiply classic by 10)
+        const tycoonPrices = {
+            1: {}, 2: {}, 3: {}
+        };
+        
+        // Generate tycoon prices
+        for (let tier in classicPrices) {
+            for (let size in classicPrices[tier]) {
+                tycoonPrices[tier][size] = classicPrices[tier][size] * 10;
+            }
+        }
+
+        function getPrice(tier, tiles) {
+            const prices = gameMode === 'classic' ? classicPrices : tycoonPrices;
+            const tierPrices = prices[tier];
+            
+            if (tiles === 0) return 0;
+            if (tiles === 1) return 0;
+            
+            // Find the appropriate price bracket
+            if (tiles >= 41) return tierPrices[41];
+            if (tiles >= 31) return tierPrices[31];
+            if (tiles >= 21) return tierPrices[21];
+            if (tiles >= 11) return tierPrices[11];
+            if (tiles >= 6) return tierPrices[6];
+            if (tiles >= 5) return tierPrices[5];
+            if (tiles >= 4) return tierPrices[4];
+            if (tiles >= 3) return tierPrices[3];
+            if (tiles >= 2) return tierPrices[2];
+            
+            return 0;
+        }
+
+        function formatPrice(price) {
+            if (gameMode === 'classic') {
+                return '$' + price.toLocaleString();
+            } else {
+                return '$' + (price / 1000) + 'K';
+            }
+        }
+
+        function getTierName(tier) {
+            switch(tier) {
+                case 1: return 'Budget';
+                case 2: return 'Standard';
+                case 3: return 'Premium';
+                default: return '';
+            }
+        }
+
+        function createChainCard(chain, index) {
+            const sizeText = chain.tiles >= 11 ? 'SAFE' : 
+                           chain.tiles >= 41 ? 'MAX' : 
+                           chain.tiles + ' tiles';
+            
+            const stockPrice = getPrice(chain.tier, chain.tiles);
+            const majorityBonus = stockPrice * 10;
+            const minorityBonus = stockPrice * 5;
+            
+            return `
+                <div class="chain-card ${chain.color} ${chain.active ? 'active' : ''} ${chain.safe ? 'safe' : ''}">
+                    <div class="tier-label">${getTierName(chain.tier)} Chain</div>
+                    <div class="chain-header">
+                        <div class="chain-name">${chain.name}</div>
+                        <div class="chain-size">${sizeText}</div>
+                    </div>
+                    <div class="chain-info">
+                        <div class="info-box">
+                            <div class="info-label">Tiles</div>
+                            <div class="info-value">${chain.tiles}</div>
+                        </div>
+                        <div class="info-box">
+                            <div class="info-label">Stock Left</div>
+                            <div class="info-value">${chain.stock}</div>
+                        </div>
+                    </div>
+                    ${chain.tiles >= 2 ? `
+                        <div class="pricing-info">
+                            <div class="price-box">
+                                <div class="price-label">Share Price</div>
+                                <div class="price-value">${formatPrice(stockPrice)}</div>
+                            </div>
+                            <div class="price-box">
+                                <div class="price-label">Majority</div>
+                                <div class="price-value">${formatPrice(majorityBonus)}</div>
+                            </div>
+                            <div class="price-box">
+                                <div class="price-label">Minority</div>
+                                <div class="price-value">${formatPrice(minorityBonus)}</div>
+                            </div>
+                        </div>
+                    ` : '<div style="height: 60px; display: flex; align-items: center; justify-content: center; opacity: 0.5; font-size: 12px;">Chain must have 2+ tiles to have value</div>'}
+                    <div class="controls">
+                        <div class="control-group">
+                            <button class="btn-dec" onclick="modifyTiles(${index}, -1)">-</button>
+                            <button class="btn-inc" onclick="modifyTiles(${index}, 1)">+</button>
+                            <button class="btn-inc" onclick="toggleActive(${index})">${chain.active ? 'Active' : 'Inactive'}</button>
+                        </div>
+                        <div class="control-group">
+                            <button class="btn-dec" onclick="modifyStock(${index}, 1)">-</button>
+                            <button class="btn-inc" onclick="modifyStock(${index}, -1)">+</button>
+                            <button class="btn-inc" onclick="buyStock(${index}, 1)">Buy</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function setMode(mode) {
+            gameMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            updateDisplay();
+        }
+
+        function modifyTiles(index, delta) {
+            const chain = chains[index];
+            chain.tiles = Math.max(0, Math.min(41, chain.tiles + delta));
+            
+            // Auto-activate if tiles > 0
+            if (chain.tiles > 0) {
+                chain.active = true;
+            } else {
+                chain.active = false;
+            }
+            
+            // Check if safe
+            chain.safe = chain.tiles >= 11;
+            
+            updateDisplay();
+        }
+
+        function modifyStock(index, delta) {
+            const chain = chains[index];
+            chain.stock = Math.max(0, Math.min(25, chain.stock + delta));
+            updateDisplay();
+        }
+
+        function buyStock(index, amount) {
+            const chain = chains[index];
+            if (chain.stock >= amount && chain.active) {
+                chain.stock -= amount;
+                updateDisplay();
+            }
+        }
+
+        function toggleActive(index) {
+            const chain = chains[index];
+            if (chain.tiles > 0) {
+                chain.active = !chain.active;
+                updateDisplay();
+            }
+        }
+
+        function updateDisplay() {
+            // Update chain cards
+            const chainGrid = document.getElementById('chainGrid');
+            chainGrid.innerHTML = chains.map((chain, index) => createChainCard(chain, index)).join('');
+            
+            // Update summary
+            const totalTiles = chains.reduce((sum, chain) => sum + chain.tiles, 0);
+            const activeChains = chains.filter(chain => chain.active).length;
+            const totalStock = chains.reduce((sum, chain) => sum + (25 - chain.stock), 0);
+            const safeChains = chains.filter(chain => chain.safe).length;
+            
+            document.getElementById('totalTiles').textContent = totalTiles;
+            document.getElementById('activeChains').textContent = activeChains;
+            document.getElementById('totalStock').textContent = totalStock;
+            document.getElementById('safeChains').textContent = safeChains;
+            
+            // Save to localStorage
+            saveGameState();
+        }
+
+        function saveGameState() {
+            const gameState = {
+                chains: chains,
+                gameMode: gameMode,
+                timestamp: new Date().toISOString()
+            };
+            // Note: localStorage is not available in Claude artifacts
+            // This is here for when you copy the code to use elsewhere
+            try {
+                localStorage.setItem('acquireGameState', JSON.stringify(gameState));
+            } catch (e) {
+                // Silent fail in Claude environment
+            }
+        }
+
+        function loadGameState() {
+            try {
+                const saved = localStorage.getItem('acquireGameState');
+                if (saved) {
+                    const gameState = JSON.parse(saved);
+                    chains.forEach((chain, index) => {
+                        Object.assign(chain, gameState.chains[index]);
+                    });
+                    if (gameState.gameMode) {
+                        gameMode = gameState.gameMode;
+                        document.querySelectorAll('.mode-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                            if (btn.textContent.toLowerCase().includes(gameMode)) {
+                                btn.classList.add('active');
+                            }
+                        });
+                    }
+                }
+            } catch (e) {
+                // Silent fail in Claude environment
+            }
+        }
+
+        function resetGame() {
+            if (confirm('Reset all game data?')) {
+                chains.forEach(chain => {
+                    chain.tiles = 0;
+                    chain.stock = 25;
+                    chain.active = false;
+                    chain.safe = false;
+                });
+                updateDisplay();
+            }
+        }
+
+        // Initialize
+        loadGameState();
+        updateDisplay();
+    </script>
+</div>
