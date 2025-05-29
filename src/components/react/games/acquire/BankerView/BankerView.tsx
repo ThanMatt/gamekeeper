@@ -4,7 +4,7 @@ import { TrendingUp, Package } from "lucide-react";
 
 import { ChainCard } from "./ChainCard";
 
-import type { Chain } from "../types";
+import type { Chain, Prices } from "../types";
 
 export const BankerView = () => {
   const [gameMode, setGameMode] = useState<"classic" | "tycoon">("classic");
@@ -14,7 +14,7 @@ export const BankerView = () => {
       name: "Sackson",
       color: "bg-red-600",
       tier: 1,
-      tiles: 0,
+      tiles: 0 as Prices,
       stock: 25,
       active: false,
       safe: false,
@@ -23,7 +23,7 @@ export const BankerView = () => {
       name: "Tower",
       color: "bg-yellow-500",
       tier: 1,
-      tiles: 0,
+      tiles: 0 as Prices,
       stock: 25,
       active: false,
       safe: false,
@@ -32,7 +32,7 @@ export const BankerView = () => {
       name: "American",
       color: "bg-blue-900",
       tier: 2,
-      tiles: 0,
+      tiles: 0 as Prices,
       stock: 25,
       active: false,
       safe: false,
@@ -41,7 +41,7 @@ export const BankerView = () => {
       name: "Festival",
       color: "bg-green-700",
       tier: 2,
-      tiles: 0,
+      tiles: 0 as Prices,
       stock: 25,
       active: false,
       safe: false,
@@ -50,7 +50,7 @@ export const BankerView = () => {
       name: "Worldwide",
       color: "bg-purple-700",
       tier: 2,
-      tiles: 0,
+      tiles: 0 as Prices,
       stock: 25,
       active: false,
       safe: false,
@@ -59,7 +59,7 @@ export const BankerView = () => {
       name: "Continental",
       color: "bg-blue-500",
       tier: 3,
-      tiles: 0,
+      tiles: 0 as Prices,
       stock: 25,
       active: false,
       safe: false,
@@ -68,7 +68,7 @@ export const BankerView = () => {
       name: "Imperial",
       color: "bg-orange-600",
       tier: 3,
-      tiles: 0,
+      tiles: 0 as Prices,
       stock: 25,
       active: false,
       safe: false,

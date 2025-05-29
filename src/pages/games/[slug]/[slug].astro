@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 
 import { ReactGamePluginAdapter } from "@/components/react/ReactGamePluginAdapter";
-import Layout from "@/layouts/Layout.astro";
+import GameLayout from "@/layouts/GameLayout.astro";
 
 import type { GetStaticPaths } from "astro";
 
@@ -21,6 +21,7 @@ export const getStaticPaths = (async () => {
           ...plugin,
           gameSlug: boardGame.data.slug, // :: Include parent game info
           gameName: boardGame.data.name,
+          boardGame,
         },
       });
     }
@@ -30,10 +31,12 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 ---
 
-<Layout>
+<GameLayout
+  goBackHref={`/games/${plugin.gameSlug}`}
+  boardGame={plugin.boardGame}>
   {
     plugin.framework === "react" && (
       <ReactGamePluginAdapter plugin={plugin} client:load />
     )
   }
-</Layout>
+</GameLayout>

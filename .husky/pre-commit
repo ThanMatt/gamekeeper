@@ -1,0 +1,9 @@
+# :: Run lint-staged to check only staged files
+pnpm exec lint-staged
+
+# :: Optional: Run type checking
+echo "🔍 Running TypeScript type check..."
+pnpm exec tsc --noEmit
+
+echo "✅ Pre-commit checks passed!"
+pnpm test --passWithNoTests

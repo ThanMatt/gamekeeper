@@ -1,6 +1,6 @@
 import { Minus, Plus } from "lucide-react";
 
-import type { Chain, Tier } from "../types";
+import type { Chain, Prices, Tier } from "../types";
 
 type ChainCardProps = {
   chain: Chain;
@@ -52,7 +52,7 @@ export const ChainCard = ({
     },
   };
 
-  const getPrice = (tier: Tier, tiles: number) => {
+  const getPrice = (tier: Tier, tiles: Prices) => {
     if (tiles < 2) return 0;
     const tierPrices = classicPrices[tier];
     const multiplier = gameMode === "tycoon" ? 10 : 1;
@@ -90,7 +90,7 @@ export const ChainCard = ({
     setChains((prevChains) => {
       const newChains = [...prevChains];
       const chain = newChains[index];
-      chain.tiles = Math.max(0, Math.min(41, chain.tiles + delta));
+      chain.tiles = Math.max(0, Math.min(41, chain.tiles + delta)) as Prices;
       chain.active = chain.tiles > 0;
       chain.safe = chain.tiles >= 11;
       return newChains;

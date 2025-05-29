@@ -1,0 +1,22 @@
+---
+import { ChevronLeft } from "@lucide/astro";
+
+import { Button } from "@/components/react/ui/button";
+import { H2 } from "@/components/react/ui/typography";
+import Layout from "@/layouts/Layout.astro";
+
+const { boardGame, goBackHref = "/" } = Astro.props;
+---
+
+<Layout title={boardGame.data.name} ogTitle={boardGame.data.name}>
+  <div class="grid grid-cols-3 items-center">
+    <a href={goBackHref}>
+      <Button variant="outline"><ChevronLeft /> Go Back</Button>
+    </a>
+    <div class="flex items-center justify-center">
+      <H2 className="m-0 p-0">{boardGame.data.name}</H2>
+    </div>
+    <div></div>
+  </div>
+  <slot />
+</Layout>
