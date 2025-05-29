@@ -9,10 +9,12 @@ export const SUPPORTED_GAMES: BoardGameManifest[] = [
         name: "Banking assistant",
         description:
           "Monitor hotel chain stocks and stockholder bonuses easily",
+        component: "../components/react/games/acquire/BankerView.tsx",
       },
       {
         name: "Player assistant",
         description: "Monitor your value easily",
+        component: "../components/react/games/acquire/PlayerView.tsx",
       },
     ],
   },

@@ -1,6 +1,6 @@
 ---
-// components/astro/BoardGameCard.astro
 import type { BoardGame } from '@/content.config';
+import { Clock, Users } from '@lucide/astro'
 
 export interface Props {
   boardGame: BoardGame;
@@ -61,22 +61,14 @@ const description = boardGame.description
           <div class="flex items-center gap-3 text-sm text-muted-foreground">
             {boardGame.playingTime > 0 && (
               <span class="flex items-center gap-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12,6 12,12 16,14"></polyline>
-                </svg>
+                <Clock class="h-4 w-4" />
                 {boardGame.playingTime} min
               </span>
             )}
             
             {boardGame.minPlayers > 0 && boardGame.maxPlayers > 0 && (
               <span class="flex items-center gap-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg>
+                <Users class="h-4 w-4" />
                 {boardGame.minPlayers === boardGame.maxPlayers 
                   ? `${boardGame.minPlayers} players`
                   : `${boardGame.minPlayers}-${boardGame.maxPlayers} players`
@@ -96,7 +88,7 @@ const description = boardGame.description
       <div class="flex justify-between items-center pt-2 border-t">
         <div class="flex items-center gap-2 text-xs text-muted-foreground">
           {boardGame.weight > 0 && (
-            <span title={`Complexity: ${boardGame.weight}/5`}>
+            <span title="Complexity">
               🎯 {boardGame.weight.toFixed(1)}/5
             </span>
           )}

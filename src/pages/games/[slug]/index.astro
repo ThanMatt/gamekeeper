@@ -2,9 +2,11 @@
 import Layout from "@/layouts/Layout.astro";
 import type { GetStaticPaths } from "astro";
 import { getCollection, getEntry, render } from "astro:content";
+import BoardGamePluginCard from '@/components/astro/BoardGamePluginCard.astro'
 import { H2 } from '@/components/react/ui/typography'
 import { Button } from '@/components/react/ui/button'
 import {ChevronLeft} from 'lucide-react'
+import type { BoardGameCollection } from "@/content.config";
 
 export const getStaticPaths = (async () => {
   const boardGames = await getCollection("boardGames");
@@ -24,8 +26,7 @@ export const getStaticPaths = (async () => {
   });
 }) satisfies GetStaticPaths;
 
-const boardGame = Astro.props;
-const boardGameData = await getEntry("boardGames", boardGame.id);
+const boardGame = Astro.props as BoardGameCollection;
 ---
 
 <Layout title={boardGame.data.name} ogTitle={boardGame.data.name}>
@@ -33,7 +34,40 @@ const boardGameData = await getEntry("boardGames", boardGame.id);
     <a href="/">
       <Button variant="outline"><ChevronLeft /> Go Back</Button>
     </a>
-    <H2 className="text-center">{boardGameData?.data.name}</H2>
+    <H2 className="text-center">{boardGame.data.name}</H2>
     <div />
   </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 lg-grid-cols-4 gap-6">
+    {
+      boardGame.data.plugins.map((plugin) => {
+        return <BoardGamePluginCard plugin={plugin} boardGameSlug={boardGame.data.slug} />;
+      })
+    }
+  </div>
 </Layout>
+
+
+<style>
+  /* Ensure consistent card heights in grids */
+  .group {
+    height: 100%;
+  }
+  
+  .group > div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .group .p-4 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .group .p-4 > p {
+    flex: 1;
+  }
+</style>
+

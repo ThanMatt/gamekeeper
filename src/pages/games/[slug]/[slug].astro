@@ -1,0 +1,32 @@
+---
+import type { BoardGamePluginManifest } from "@/content.config";
+import Layout from "@/layouts/Layout.astro"
+import type { GetStaticPaths } from "astro";
+import { getCollection } from 'astro:content'
+
+
+export const getStaticPaths = (async () => {
+  const boardGames = await getCollection("boardGames");
+  const boardGamePlugins = boardGames.map((boardGame) => boardGame.data.plugins).flat()
+  const pages = [
+    ...boardGamePlugins.map((plugin) => {
+      return {
+        ...plugin,
+      };
+    }),
+  ];
+
+  return pages.map((page) => {
+    return {
+      params: { slug: page.slug },
+      props: { ...page },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const {name, description, slug, component} = Astro.props as BoardGamePluginManifest;
+---
+
+<Layout>
+  <p>{name}</p>
+</Layout>

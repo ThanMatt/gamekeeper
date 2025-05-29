@@ -1,6 +1,4 @@
-import type { BoardGamePluginManifest } from "./content.config";
-
-export type BoardGameData = {
+export type BGGBoardGameData = {
   id: string;
   name: string;
   description: string;
@@ -19,5 +17,11 @@ export type BoardGameData = {
 export type BoardGameManifest = {
   id: string;
   name: string;
-  plugins?: BoardGamePluginManifest[];
+  plugins?: BoardGamePluginData[];
+};
+
+export type BoardGamePluginData = {
+  name: string;
+  description?: string;
+  component: string;
 };

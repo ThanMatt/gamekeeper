@@ -7,6 +7,7 @@ const boardGamePluginSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   component: z.string().optional(),
+  slug: z.string(),
 });
 
 const boardGameSchema = z.object({
@@ -41,7 +42,14 @@ const boardGames = defineCollection({
         supportedGames.push({
           ...boardGame,
           slug: slugify(boardGame.name, boardGame.id),
-          plugins: game.plugins ?? [],
+          plugins: game.plugins
+            ? game.plugins.map((plugin) => {
+                return {
+                  ...plugin,
+                  slug: slugify(plugin.name, boardGame.id),
+                };
+              })
+            : [],
         });
         // :: Add a small delay to be nice to BGG's API
         await new Promise((resolve) => setTimeout(resolve, 1000));
