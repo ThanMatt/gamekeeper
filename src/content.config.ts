@@ -6,6 +6,7 @@ import { slugify } from "./lib/utils";
 const boardGamePluginSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
+  component: z.string().optional(),
 });
 
 const boardGameSchema = z.object({
@@ -27,7 +28,7 @@ const boardGameSchema = z.object({
 });
 
 export type BoardGame = z.infer<typeof boardGameSchema>;
-export type BoardGamePlugin = z.infer<typeof boardGamePluginSchema>;
+export type BoardGamePluginManifest = z.infer<typeof boardGamePluginSchema>;
 const boardGames = defineCollection({
   loader: async () => {
     const supportedGames: BoardGame[] = [];
