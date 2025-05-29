@@ -1,4 +1,4 @@
-import { Components, type BoardGameManifest } from "@/types";
+import { type BoardGameManifest } from "@/types";
 
 export const SUPPORTED_GAMES: BoardGameManifest[] = [
   {
@@ -9,13 +9,13 @@ export const SUPPORTED_GAMES: BoardGameManifest[] = [
         name: "Banking assistant",
         description:
           "Monitor hotel chain stocks and stockholder bonuses easily",
-        componentId: Components.ACQUIRE_BANKING_ASSISTANT,
+        componentId: "acquire-banking-assistant",
         framework: "react",
       },
       {
         name: "Player assistant",
         description: "Monitor your value easily",
-        componentId: Components.ACQUIRE_PLAYER_ASSISTANT,
+        componentId: "acquire-player-assistant",
         framework: "react",
       },
     ],

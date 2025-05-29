@@ -1,12 +1,12 @@
 ---
-import type {BoardGamePluginManifest} from "@/content.config";
+import type { BoardGamePluginManifest } from "@/content.config";
 
 type BoardGamePluginCardProps = {
   plugin: BoardGamePluginManifest;
   boardGameSlug: string;
 };
 
-const {plugin, boardGameSlug} = Astro.props as BoardGamePluginCardProps;
+const { plugin, boardGameSlug } = Astro.props as BoardGamePluginCardProps;
 ---
 
 <a href={`/games/${boardGameSlug}/${plugin.slug}`} class="group block">

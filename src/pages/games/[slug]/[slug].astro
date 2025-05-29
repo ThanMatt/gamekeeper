@@ -1,8 +1,8 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import {ReactGamePluginAdapter} from "@/components/react/ReactGamePluginAdapter";
-import type {GetStaticPaths} from "astro";
-import {getCollection} from "astro:content";
+import { ReactGamePluginAdapter } from "@/components/react/ReactGamePluginAdapter";
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
 
 const plugin = Astro.props;
 
@@ -14,7 +14,7 @@ export const getStaticPaths = (async () => {
   for (const boardGame of boardGames) {
     for (const plugin of boardGame.data.plugins) {
       pages.push({
-        params: {slug: plugin.slug}, // :: Make sure plugin has a slug
+        params: { slug: plugin.slug }, // :: Make sure plugin has a slug
         props: {
           ...plugin,
           gameSlug: boardGame.data.slug, // :: Include parent game info

@@ -27,10 +27,9 @@ export type BoardGamePluginData = {
   framework: Framework;
 };
 
-export enum Components {
-  ACQUIRE_BANKING_ASSISTANT = "acquire-banking-assistant",
-  ACQUIRE_PLAYER_ASSISTANT = "acquire-player-assistant",
-}
+export type Components =
+  | "acquire-banking-assistant"
+  | "acquire-player-assistant";
 
 export type Framework = "react" | "vue" | "svelte" | "astro";
 

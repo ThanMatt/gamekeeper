@@ -19,8 +19,7 @@
         "parser": "astro",
         "bracketSameLine": true,
         "htmlWhitespaceSensitivity": "ignore",
-        "singleAttributePerLine": false,
-        "bracketSpacing": false
+        "singleAttributePerLine": false
       }
     },
     {

@@ -57,7 +57,7 @@ const boardGames = defineCollection({
         });
         // :: Add a small delay to be nice to BGG's API
         await new Promise((resolve) => setTimeout(resolve, 1000));
-      } catch (error) {
+      } catch {
         supportedGames.push({
           ...EMPTY_BOARD_GAME_DATA,
           id: game.id,

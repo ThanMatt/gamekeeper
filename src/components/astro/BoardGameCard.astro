@@ -1,12 +1,12 @@
 ---
-import type {BoardGame} from "@/content.config";
-import {Clock, Users} from "@lucide/astro";
+import type { BoardGame } from "@/content.config";
+import { Clock, Users } from "@lucide/astro";
 
 export interface Props {
   boardGame: BoardGame;
 }
 
-const {boardGame} = Astro.props;
+const { boardGame } = Astro.props;
 
 // Truncate description if it's too long
 const truncateDescription = (text: string, maxLength: number = 120) => {
