@@ -2,6 +2,9 @@
 import Layout from "@/layouts/Layout.astro";
 import type { GetStaticPaths } from "astro";
 import { getCollection, getEntry, render } from "astro:content";
+import { H2 } from '../components/ui/typography'
+import { Button } from '../components/ui/button'
+import {ChevronLeft} from 'lucide-react'
 
 export const getStaticPaths = (async () => {
   const boardGames = await getCollection("boardGames");
@@ -25,6 +28,12 @@ const boardGame = Astro.props;
 const boardGameData = await getEntry("boardGames", boardGame.id);
 ---
 
-<Layout>
-  <p>{boardGameData?.data.name}</p>
+<Layout title={boardGame.data.name} ogTitle={boardGame.data.name}>
+  <div class="grid grid-cols-[auto_1fr_auto] items-center">
+    <a href="/">
+      <Button variant="outline"><ChevronLeft /> Go Back</Button>
+    </a>
+    <H2 className="text-center">{boardGameData?.data.name}</H2>
+    <div />
+  </div>
 </Layout>

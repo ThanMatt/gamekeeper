@@ -16,7 +16,7 @@ type BoardGameCardProps = {
 export const BoardGameCard = ({ boardGame }: BoardGameCardProps) => {
   return (
     <a href={`/${boardGame.slug}`}>
-      <Card className="overflow-hidden p-0">
+      <Card className="overflow-hidden p-0 hover:bg-foreground/10">
         <img
           src={boardGame.image ?? ""}
           alt="Card header image"
