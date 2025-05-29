@@ -1,4 +1,5 @@
 import { defineCollection, z, type RenderedContent } from "astro:content";
+
 import { fetchBGGGameData } from "./api";
 import { EMPTY_BOARD_GAME_DATA, SUPPORTED_GAMES } from "./lib/consts";
 import { slugify } from "./lib/utils";

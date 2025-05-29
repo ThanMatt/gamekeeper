@@ -1,5 +1,5 @@
 // :: Import all the game components
-import { BankerView } from "@/components/react/games/acquire/BankerView";
+import { BankerView } from "@/components/react/games/acquire/BankerView/BankerView";
 import { PlayerView } from "@/components/react/games/acquire/PlayerView";
 import type { Components, ComponentRegistryEntry } from "@/types";
 

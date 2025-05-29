@@ -1,5 +1,7 @@
 import { XMLParser } from "fast-xml-parser";
+
 import { EMPTY_BOARD_GAME_DATA } from "./lib/consts";
+
 import type { BGGBoardGameData } from "./types";
 
 const BGG_URL = "https://boardgamegeek.com";

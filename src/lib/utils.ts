@@ -1,7 +1,9 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { COMPONENT_REGISTRY } from "./component-registry";
+
 import type { ComponentRegistryEntry, Components, Framework } from "@/types";
+
+import { COMPONENT_REGISTRY } from "./component-registry";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

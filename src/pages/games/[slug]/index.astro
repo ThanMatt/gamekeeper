@@ -1,12 +1,14 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
-import BoardGamePluginCard from "@/components/astro/BoardGamePluginCard.astro";
-import { H2 } from "@/components/react/ui/typography";
-import { Button } from "@/components/react/ui/button";
 import { ChevronLeft } from "lucide-react";
+
+import BoardGamePluginCard from "@/components/astro/BoardGamePluginCard.astro";
+import { Button } from "@/components/react/ui/button";
+import { H2 } from "@/components/react/ui/typography";
 import type { BoardGameCollection } from "@/content.config";
+import Layout from "@/layouts/Layout.astro";
+
+import type { GetStaticPaths } from "astro";
 
 export const getStaticPaths = (async () => {
   const boardGames = await getCollection("boardGames");

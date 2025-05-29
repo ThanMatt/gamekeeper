@@ -1,6 +1,9 @@
 import { useState } from "react";
+
 import { TrendingUp, Package } from "lucide-react";
+
 import { ChainCard } from "./ChainCard";
+
 import type { Chain } from "../types";
 
 export const BankerView = () => {

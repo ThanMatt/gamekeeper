@@ -1,4 +1,5 @@
 import { Minus, Plus } from "lucide-react";
+
 import type { Chain, Tier } from "../types";
 
 type ChainCardProps = {

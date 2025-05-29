@@ -1,7 +1,9 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../layouts/Layout.astro";
+
 import BoardGameCard from "@/components/astro/BoardGameCard.astro";
+
+import Layout from "../layouts/Layout.astro";
 
 const boardGames = await getCollection("boardGames");
 ---

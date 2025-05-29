@@ -1,8 +1,10 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import { ReactGamePluginAdapter } from "@/components/react/ReactGamePluginAdapter";
-import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
+
+import { ReactGamePluginAdapter } from "@/components/react/ReactGamePluginAdapter";
+import Layout from "@/layouts/Layout.astro";
+
+import type { GetStaticPaths } from "astro";
 
 const plugin = Astro.props;
 
