@@ -130,7 +130,7 @@ export const BankerView = () => {
 
   return (
     <div className="min-h-screen p-4 text-white">
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto">
         <h1 className="mb-4 flex items-center justify-center gap-2 text-center text-3xl font-bold">
           <TrendingUp className="h-8 w-8" />
           Acquire Banker Assistant
@@ -159,7 +159,7 @@ export const BankerView = () => {
           </button>
         </div>
 
-        <div className="mb-6 grid gap-4">
+        <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
           {chains.map((chain, index) => (
             <ChainCard
               key={chain.name}

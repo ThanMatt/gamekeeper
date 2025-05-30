@@ -9,7 +9,7 @@ const boardGames = await getCollection("boardGames");
 ---
 
 <Layout>
-  <div class="lg-grid-cols-4 grid grid-cols-1 gap-6 md:grid-cols-3">
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
     {
       boardGames.map((boardGame) => {
         return <BoardGameCard boardGame={boardGame.data} />;

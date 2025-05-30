@@ -9,9 +9,12 @@ const { boardGame, goBackHref = "/" } = Astro.props;
 ---
 
 <Layout title={boardGame.data.name} ogTitle={boardGame.data.name}>
-  <div class="grid grid-cols-3 items-center">
+  <div class="mb-4 grid grid-cols-3 items-center">
     <a href={goBackHref}>
-      <Button variant="outline"><ChevronLeft /> Go Back</Button>
+      <Button variant="outline"
+        ><ChevronLeft />
+        <span class="hidden md:block">Go Back</span></Button
+      >
     </a>
     <div class="flex items-center justify-center">
       <H2 className="m-0 p-0">{boardGame.data.name}</H2>
