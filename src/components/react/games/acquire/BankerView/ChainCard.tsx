@@ -136,10 +136,10 @@ export const ChainCard = ({
         <span
           className={`rounded-md px-2 py-1 text-xs font-medium ${isYellow ? "bg-gray-900/20" : "bg-white/20"} ${textColor}`}
         >
-          {chain.tiles >= 11
-            ? "SAFE"
-            : chain.tiles >= 41
-              ? "MAX"
+          {chain.tiles >= 41
+            ? "MAX"
+            : chain.tiles >= 11
+              ? "SAFE"
               : `${chain.tiles} tiles`}
         </span>
       </div>
