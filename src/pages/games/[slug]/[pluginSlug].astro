@@ -16,7 +16,7 @@ export const getStaticPaths = (async () => {
   for (const boardGame of boardGames) {
     for (const plugin of boardGame.data.plugins) {
       pages.push({
-        params: { slug: plugin.slug }, // :: Make sure plugin has a slug
+        params: { slug: boardGame.data.slug, pluginSlug: plugin.slug }, // :: Make sure plugin has a slug
         props: {
           ...plugin,
           gameSlug: boardGame.data.slug, // :: Include parent game info
