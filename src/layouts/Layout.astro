@@ -10,19 +10,21 @@ const { title = "GameKeeper", description, ogTitle } = Astro.props;
 <!doctype html>
 <html lang="en" class="h-full">
   <Head title={title} description={description} ogTitle={ogTitle} />
-  <body class="dark flex min-h-full flex-col px-4 lg:container lg:mx-auto">
+  <body class="dark flex min-h-screen flex-col">
     <!-- Header Section -->
-    <header class="flex-shrink-0">
-      <div class="py-16 text-center">
-        <H1>GameKeeper</H1>
-        <Lead>Your board game companion</Lead>
-      </div>
-    </header>
+    <div class="flex-1 px-4 lg:container lg:mx-auto">
+      <header class="flex-shrink-0">
+        <div class="py-16 text-center">
+          <H1>GameKeeper</H1>
+          <Lead>Your board game companion</Lead>
+        </div>
+      </header>
 
-    <!-- Main Content Area -->
-    <main class="flex-grow">
-      <slot />
-    </main>
+      <!-- Main Content Area -->
+      <main>
+        <slot />
+      </main>
+    </div>
 
     <!-- Footer -->
     <Footer />
@@ -34,12 +36,5 @@ const { title = "GameKeeper", description, ogTitle } = Astro.props;
   html,
   body {
     height: 100%;
-  }
-
-  /* Ensure the layout takes full viewport height */
-  body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
   }
 </style>
