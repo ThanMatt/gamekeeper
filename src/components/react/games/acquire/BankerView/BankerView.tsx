@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { TrendingUp, Package } from "lucide-react";
 
 import { ChainCard } from "./ChainCard";
 
 import type { Chain, Prices } from "../types";
+
+const STORAGE_KEY = "acquire-banker-view-state";
+
+interface GameState {
+  chains: Chain[];
+  gameMode: "classic" | "tycoon";
+}
 
 export const BankerView = () => {
   const [gameMode, setGameMode] = useState<"classic" | "tycoon">("classic");
@@ -77,9 +84,41 @@ export const BankerView = () => {
 
   const [chains, setChains] = useState(initialChains);
 
+  useEffect(() => {
+    try {
+      const savedState = localStorage.getItem(STORAGE_KEY);
+      if (savedState) {
+        const parsedState: GameState = JSON.parse(savedState);
+        setChains(parsedState.chains);
+        setGameMode(parsedState.gameMode);
+      }
+    } catch (error) {
+      console.warn("Failed to load saved game state: ", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      const gameState: GameState = {
+        chains,
+        gameMode,
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
+    } catch (error) {
+      console.warn("Failed to save game state: ", error);
+    }
+  }, [chains, gameMode]);
+
   const resetGame = () => {
     if (confirm("Reset all game data?")) {
       setChains(initialChains.map((chain) => ({ ...chain })));
+      setGameMode("classic");
+
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (error) {
+        console.warn("Failed to clear saved game state: ", error);
+      }
     }
   };
 
