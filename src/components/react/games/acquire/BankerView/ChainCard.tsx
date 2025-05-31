@@ -123,6 +123,8 @@ export const ChainCard = ({
   const isYellow = chain.name === "Tower";
   const textColor = isYellow ? "text-gray-900" : "text-white";
 
+  const boughtStocks = 25 - chain.stock;
+
   return (
     <div
       className={`${chain.color} transform rounded-xl p-4 shadow-lg transition-all duration-200 hover:scale-[1.02] ${chain.safe ? "ring-4 ring-green-400" : ""}`}
@@ -133,14 +135,21 @@ export const ChainCard = ({
 
       <div className="mb-3 flex items-center justify-between">
         <h3 className={`text-lg font-bold ${textColor}`}>{chain.name}</h3>
-        <span
-          className={`rounded-md px-2 py-1 text-xs font-medium ${isYellow ? "bg-gray-900/20" : "bg-white/20"} ${textColor}`}
-        >
-          {chain.tiles >= 41
-            ? "MAX"
-            : chain.tiles >= 11
-              ? "SAFE"
-              : `${chain.tiles} tiles`}
+        <span className="flex gap-4">
+          <span
+            className={`rounded-md px-2 py-1 text-xs font-medium ${isYellow ? "bg-gray-900/20" : "bg-white/20"} ${textColor}`}
+          >
+            {boughtStocks} bought {boughtStocks === 1 ? "stock" : "stocks"}
+          </span>
+          <span
+            className={`rounded-md px-2 py-1 text-xs font-medium ${isYellow ? "bg-gray-900/20" : "bg-white/20"} ${textColor}`}
+          >
+            {chain.tiles >= 41
+              ? "MAX"
+              : chain.tiles >= 11
+                ? "SAFE"
+                : `${chain.tiles} tiles`}
+          </span>
         </span>
       </div>
 

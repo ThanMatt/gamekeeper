@@ -1,4 +1,6 @@
 ---
+import { Gamepad2Icon } from "@lucide/astro";
+
 import type { BoardGamePluginManifest } from "@/content.config";
 
 type BoardGamePluginCardProps = {
@@ -16,10 +18,13 @@ const { plugin, boardGameSlug } = Astro.props as BoardGamePluginCardProps;
     <div class="p-4">
       <!-- Header -->
       <div class="mb-2 flex items-start justify-between">
-        <div class="flex-1">
-          <h3 class="mb-1 text-lg leading-none font-semibold tracking-tight">
-            {plugin.name}
-          </h3>
+        <div class="flex gap-2">
+          <Gamepad2Icon class="h-5 w-5" />
+          <div class="flex-1">
+            <h3 class="mb-1 text-lg leading-none font-semibold tracking-tight">
+              {plugin.name}
+            </h3>
+          </div>
         </div>
       </div>
 
