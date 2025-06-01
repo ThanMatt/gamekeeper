@@ -1,6 +1,5 @@
 import "@testing-library/jest-dom";
 import { cleanup } from "@testing-library/react";
-//import { cleanup as svelteCleanup } from '@testing-library/svelte';
 import { afterEach, vi } from "vitest";
 
 // Mock window.confirm globally
