@@ -55,6 +55,7 @@ const boardGames = defineCollection({
                 };
               })
             : [],
+          name: game.name,
         });
         // :: Add a small delay to be nice to BGG's API
         await new Promise((resolve) => setTimeout(resolve, 1000));
