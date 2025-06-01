@@ -1,10 +1,11 @@
 import { defineCollection, z, type RenderedContent } from "astro:content";
 
-import { fetchBGGGameData } from "./api";
-import { EMPTY_BOARD_GAME_DATA, SUPPORTED_GAMES } from "./lib/consts";
-import { slugify } from "./lib/utils";
+import { fetchBGGGameData } from "@/api";
+import { EMPTY_BOARD_GAME_DATA, SUPPORTED_GAMES } from "@/lib/consts";
+import { slugify } from "@/lib/utils";
+import type { BoardGame } from "@/types";
 
-const boardGamePluginSchema = z.object({
+export const boardGamePluginSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   componentId: z.enum([
@@ -15,7 +16,7 @@ const boardGamePluginSchema = z.object({
   slug: z.string(),
 });
 
-const boardGameSchema = z.object({
+export const boardGameSchema = z.object({
   id: z.string(),
   name: z.string(),
   description: z.string(),
@@ -33,8 +34,6 @@ const boardGameSchema = z.object({
   plugins: z.array(boardGamePluginSchema),
 });
 
-export type BoardGame = z.infer<typeof boardGameSchema>;
-export type BoardGamePluginManifest = z.infer<typeof boardGamePluginSchema>;
 const boardGames = defineCollection({
   loader: async () => {
     const supportedGames: BoardGame[] = [];

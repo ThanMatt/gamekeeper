@@ -1,3 +1,10 @@
+import { z } from "astro:content";
+
+import { boardGameSchema, boardGamePluginSchema } from "./content.config";
+
+export type BoardGame = z.infer<typeof boardGameSchema>;
+export type BoardGamePluginManifest = z.infer<typeof boardGamePluginSchema>;
+
 export type BGGBoardGameData = {
   id: string;
   name: string;
