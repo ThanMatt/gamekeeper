@@ -1,5 +1,5 @@
-import type { BoardGamePluginManifest } from "@/content.config";
 import { filterByFramework } from "@/lib/utils";
+import type { BoardGamePluginManifest } from "@/types";
 
 const PLUGIN_COMPONENTS = filterByFramework("react");
 
