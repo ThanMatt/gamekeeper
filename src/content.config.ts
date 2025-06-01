@@ -10,6 +10,7 @@ const boardGamePluginSchema = z.object({
   componentId: z.enum([
     "acquire-banking-assistant",
     "acquire-player-assistant",
+    "hello-world",
   ]),
   framework: z.enum(["react", "svelte", "vue", "astro"]),
   slug: z.string(),
@@ -55,6 +56,7 @@ const boardGames = defineCollection({
                 };
               })
             : [],
+          name: game.name,
         });
         // :: Add a small delay to be nice to BGG's API
         await new Promise((resolve) => setTimeout(resolve, 1000));

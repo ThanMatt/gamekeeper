@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 
 import { ReactGamePluginAdapter } from "@/components/react/ReactGamePluginAdapter";
+import VueGamePluginAdapter from "@/components/vue/VueGamePluginAdapter.vue";
 import GameLayout from "@/layouts/GameLayout.astro";
 
 import type { GetStaticPaths } from "astro";
@@ -37,6 +38,12 @@ export const getStaticPaths = (async () => {
   {
     plugin.framework === "react" && (
       <ReactGamePluginAdapter plugin={plugin} client:load />
+    )
+  }
+
+  {
+    plugin.framework === "vue" && (
+      <VueGamePluginAdapter plugin={plugin} client:load />
     )
   }
 </GameLayout>
