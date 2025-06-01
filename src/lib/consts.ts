@@ -20,6 +20,18 @@ export const SUPPORTED_GAMES: BoardGameManifest[] = [
       },
     ],
   },
+  {
+    id: "6",
+    name: "Chess",
+    plugins: [
+      {
+        name: "Player assistant",
+        description: "Monitor your value easily",
+        componentId: "chess-player-assistant",
+        framework: "svelte",
+      },
+    ],
+  },
   // :: Add more games here
 ];
 

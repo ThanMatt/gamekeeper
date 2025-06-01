@@ -10,6 +10,7 @@ const boardGamePluginSchema = z.object({
   componentId: z.enum([
     "acquire-banking-assistant",
     "acquire-player-assistant",
+    "chess-player-assistant",
   ]),
   framework: z.enum(["react", "svelte", "vue", "astro"]),
   slug: z.string(),

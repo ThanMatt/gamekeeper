@@ -29,7 +29,8 @@ export type BoardGamePluginData = {
 
 export type Components =
   | "acquire-banking-assistant"
-  | "acquire-player-assistant";
+  | "acquire-player-assistant"
+  | "chess-player-assistant";
 
 export type Framework = "react" | "vue" | "svelte" | "astro";
 

@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.3.0",
+    "@astrojs/svelte": "^7.1.0",
     "@lucide/astro": "^0.511.0",
     "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/vite": "^4.1.7",
@@ -42,6 +43,7 @@
     "lucide-react": "^0.511.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "svelte": "^5.33.11",
     "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.7"
   },

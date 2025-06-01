@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 
 import { ReactGamePluginAdapter } from "@/components/react/ReactGamePluginAdapter";
+import SvelteGamePluginAdapter from "@/components/svelte/SvelteGamePluginAdapter.svelte";
 import GameLayout from "@/layouts/GameLayout.astro";
 
 import type { GetStaticPaths } from "astro";
@@ -37,6 +38,11 @@ export const getStaticPaths = (async () => {
   {
     plugin.framework === "react" && (
       <ReactGamePluginAdapter plugin={plugin} client:load />
+    )
+  }
+  {
+    plugin.framework === "svelte" && (
+      <SvelteGamePluginAdapter plugin={plugin} client:load />
     )
   }
 </GameLayout>
