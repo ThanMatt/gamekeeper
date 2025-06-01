@@ -16,7 +16,7 @@
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx,.astro --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "pnpm run lint && pnpm run format:check",
+    "check": "pnpm run lint && pnpm run format:check && pnpm run typecheck",
     "fix": "pnpm run lint:fix && pnpm run format",
     "prepare": "husky",
     "pre-commit": "lint-staged",
@@ -26,9 +26,11 @@
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest --watch",
     "commit": "git-cz",
-    "commitlint": "commitlint --from HEAD~1 --to HEAD --verbose"
+    "commitlint": "commitlint --from HEAD~1 --to HEAD --verbose",
+    "typecheck": "astro check && tsc --noEmit"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.4",
     "@astrojs/react": "^4.3.0",
     "@lucide/astro": "^0.511.0",
     "@radix-ui/react-slot": "^1.2.3",
