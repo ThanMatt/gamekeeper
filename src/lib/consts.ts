@@ -20,19 +20,6 @@ export const SUPPORTED_GAMES: BoardGameManifest[] = [
       },
     ],
   },
-  {
-    id: "420",
-    name: "Test Game",
-    plugins: [
-      {
-        name: "Simple Vue Plugin",
-        description:
-          "Monitor hotel chain stocks and stockholder bonuses easily",
-        componentId: "hello-world",
-        framework: "vue",
-      },
-    ],
-  },
   // :: Add more games here
 ];
 
