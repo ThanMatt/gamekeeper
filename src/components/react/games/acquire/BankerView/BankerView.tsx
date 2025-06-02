@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 
 import { TrendingUp, Package } from "lucide-react";
 
-import { ChainCard } from "./ChainCard";
+import { ChainCard } from "../ChainCard";
+import { createInitialChains } from "../consts";
 
-import type { Chain, Prices } from "../types";
+import type { Chain } from "../types";
 
 const STORAGE_KEY = "acquire-banker-view-state";
 
@@ -15,74 +16,7 @@ interface GameState {
 
 export const BankerView = () => {
   const [gameMode, setGameMode] = useState<"classic" | "tycoon">("classic");
-
-  const initialChains: Chain[] = [
-    {
-      name: "Sackson",
-      color: "bg-red-600",
-      tier: 1,
-      tiles: 0 as Prices,
-      stock: 25,
-      active: false,
-      safe: false,
-    },
-    {
-      name: "Tower",
-      color: "bg-yellow-500",
-      tier: 1,
-      tiles: 0 as Prices,
-      stock: 25,
-      active: false,
-      safe: false,
-    },
-    {
-      name: "American",
-      color: "bg-blue-900",
-      tier: 2,
-      tiles: 0 as Prices,
-      stock: 25,
-      active: false,
-      safe: false,
-    },
-    {
-      name: "Festival",
-      color: "bg-green-700",
-      tier: 2,
-      tiles: 0 as Prices,
-      stock: 25,
-      active: false,
-      safe: false,
-    },
-    {
-      name: "Worldwide",
-      color: "bg-purple-700",
-      tier: 2,
-      tiles: 0 as Prices,
-      stock: 25,
-      active: false,
-      safe: false,
-    },
-    {
-      name: "Continental",
-      color: "bg-blue-500",
-      tier: 3,
-      tiles: 0 as Prices,
-      stock: 25,
-      active: false,
-      safe: false,
-    },
-    {
-      name: "Imperial",
-      color: "bg-orange-600",
-      tier: 3,
-      tiles: 0 as Prices,
-      stock: 25,
-      active: false,
-      safe: false,
-    },
-  ];
-
-  const [chains, setChains] = useState(initialChains);
+  const [chains, setChains] = useState(createInitialChains);
 
   useEffect(() => {
     try {
@@ -111,7 +45,7 @@ export const BankerView = () => {
 
   const resetGame = () => {
     if (confirm("Reset all game data?")) {
-      setChains(initialChains.map((chain) => ({ ...chain })));
+      setChains(createInitialChains());
       setGameMode("classic");
 
       try {

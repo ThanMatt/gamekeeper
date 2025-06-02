@@ -1,12 +1,16 @@
 import { Minus, Plus } from "lucide-react";
 
-import type { Chain, Prices, Tier } from "../types";
+import { classicPrices } from "./consts";
+
+import type { Chain, Prices, Tier } from "./types";
 
 type ChainCardProps = {
   chain: Chain;
   index: number;
   gameMode: "tycoon" | "classic";
   setChains: React.Dispatch<React.SetStateAction<Chain[]>>;
+  onDeductBalance?: (price: number) => void; // :: For non-banker players
+  playerBalance?: number;
 };
 
 export const ChainCard = ({
@@ -14,44 +18,9 @@ export const ChainCard = ({
   index,
   gameMode,
   setChains,
+  onDeductBalance,
+  playerBalance,
 }: ChainCardProps) => {
-  // Price tables
-  const classicPrices = {
-    1: {
-      2: 200,
-      3: 300,
-      4: 400,
-      5: 500,
-      6: 600,
-      11: 700,
-      21: 800,
-      31: 900,
-      41: 1000,
-    },
-    2: {
-      2: 300,
-      3: 400,
-      4: 500,
-      5: 600,
-      6: 700,
-      11: 800,
-      21: 900,
-      31: 1000,
-      41: 1100,
-    },
-    3: {
-      2: 400,
-      3: 500,
-      4: 600,
-      5: 700,
-      6: 800,
-      11: 900,
-      21: 1000,
-      31: 1100,
-      41: 1200,
-    },
-  };
-
   const getPrice = (tier: Tier, tiles: Prices) => {
     if (tiles < 2) return 0;
     const tierPrices = classicPrices[tier];
@@ -124,6 +93,31 @@ export const ChainCard = ({
   const textColor = isYellow ? "text-gray-900" : "text-white";
 
   const boughtStocks = 25 - chain.stock;
+
+  const isDisabled =
+    !chain.active ||
+    chain.stock === 0 ||
+    (playerBalance !== undefined &&
+      (playerBalance <= 0 || playerBalance < stockPrice));
+
+  const buyStock = (index: number) => {
+    if (!isDisabled) {
+      setChains((prevChains) => {
+        const newChains = [...prevChains];
+        newChains[index].stock = Math.max(
+          0,
+          Math.min(25, newChains[index].stock - 1)
+        );
+
+        if (onDeductBalance) {
+          onDeductBalance(
+            getPrice(newChains[index].tier, newChains[index].tiles)
+          );
+        }
+        return newChains;
+      });
+    }
+  };
 
   return (
     <div
@@ -267,9 +261,7 @@ export const ChainCard = ({
             <Plus className="mx-auto h-4 w-4" />
           </button>
           <button
-            onClick={() =>
-              chain.active && chain.stock > 0 && modifyStock(index, -1)
-            }
+            onClick={() => buyStock(index)}
             className={`flex-1 rounded-lg px-3 py-2 text-xs font-medium transition-all ${
               chain.active && chain.stock > 0
                 ? isYellow
@@ -278,7 +270,7 @@ export const ChainCard = ({
                 : isYellow
                   ? "bg-gray-900/10"
                   : "bg-white/10"
-            } ${textColor} ${!chain.active || chain.stock === 0 ? "cursor-not-allowed opacity-50" : ""}`}
+            } ${textColor} ${isDisabled ? "cursor-not-allowed opacity-50" : ""}`}
           >
             Buy Stock
           </button>
