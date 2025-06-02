@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 
 import BoardGamePluginCard from "@/components/astro/BoardGamePluginCard.astro";
+import InfoBlock from "@/components/astro/InfoBlock.astro";
 import GameLayout from "@/layouts/GameLayout.astro";
 import type { BoardGameCollection } from "@/types";
 
@@ -29,39 +30,97 @@ const boardGame = Astro.props as BoardGameCollection;
 ---
 
 <GameLayout boardGame={boardGame}>
-  <div class="lg-grid-cols-4 grid grid-cols-1 gap-6 md:grid-cols-3">
-    {
-      boardGame.data.plugins.map((plugin) => {
-        return (
-          <BoardGamePluginCard
-            plugin={plugin}
-            boardGameSlug={boardGame.data.slug}
-          />
-        );
-      })
-    }
+  <div class="mb-8 flex flex-col gap-8">
+    <div>
+      <p class="text-muted-foreground line-clamp-2">
+        {boardGame.data.description}
+      </p>
+      <a
+        href=`https://boardgamegeek.com/boardgame/${boardGame.data.id}`
+        class="hover:text-foreground font-medium underline transition-colors"
+        target="_blank"
+        rel="noopener noreferrer">
+        View more
+      </a>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-4">
+      <InfoBlock icon="🎯" title="Complexity">
+        {boardGame.data.officialName} has a complexity of {" "}
+        <span class="font-bold">
+          {boardGame.data.weight.toFixed(1)}/5
+        </span>
+      </InfoBlock>
+
+      <InfoBlock className="bg-foreground" icon="🕑" title="Playing Time">
+        {boardGame.data.officialName} takes usually <span class="font-bold">
+          {boardGame.data.playingTime} minutes
+        </span> to finish the game
+      </InfoBlock>
+
+      <InfoBlock className="bg-chart-2" icon="🎮" title="Players">
+        {boardGame.data.officialName} can be played with <span
+          class="font-bold">
+          {boardGame.data.minPlayers} - {boardGame.data.maxPlayers} players
+        </span>
+      </InfoBlock>
+
+      <InfoBlock className="bg-accent" icon="🏆" title="BGG Rank">
+        {boardGame.data.officialName} is ranked <span class="font-bold">
+          #{boardGame.data.rank}
+        </span> in BoardGameGeek
+      </InfoBlock>
+    </div>
+
+    <div class="mt-6 border-t pt-4">
+      <div
+        class="text-muted-foreground flex items-center justify-center text-sm">
+        <span>
+          📊 Data provided by
+          <a
+            href=`https://boardgamegeek.com/boardgame/${boardGame.data.id}`
+            class="hover:text-foreground font-medium underline transition-colors"
+            target="_blank"
+            rel="noopener noreferrer">
+            BoardGameGeek
+          </a>
+        </span>
+      </div>
+    </div>
+    <div class="lg-grid-cols-4 grid grid-cols-1 gap-6 md:grid-cols-3">
+      {
+        boardGame.data.plugins.map((plugin) => {
+          return (
+            <BoardGamePluginCard
+              plugin={plugin}
+              boardGameSlug={boardGame.data.slug}
+            />
+          );
+        })
+      }
+    </div>
   </div>
+
+  <style>
+    /* Ensure consistent card heights in grids */
+    .group {
+      height: 100%;
+    }
+
+    .group > div {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .group .p-4 {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .group .p-4 > p {
+      flex: 1;
+    }
+  </style>
 </GameLayout>
-
-<style>
-  /* Ensure consistent card heights in grids */
-  .group {
-    height: 100%;
-  }
-
-  .group > div {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .group .p-4 {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .group .p-4 > p {
-    flex: 1;
-  }
-</style>

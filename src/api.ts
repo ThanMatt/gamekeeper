@@ -33,7 +33,7 @@ export async function fetchBGGGameData(
     if (!item) return null;
     return {
       id: gameId,
-      name: Array.isArray(item.name)
+      officialName: Array.isArray(item.name)
         ? (item.name.find((n: any) => n["@_type"] === "primary")?.["@_value"] ??
           "Name unavailable")
         : (item.name?.["@_value"] ?? "Name unavailable"),

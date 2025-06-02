@@ -7,7 +7,7 @@ export type BoardGamePluginManifest = z.infer<typeof boardGamePluginSchema>;
 
 export type BGGBoardGameData = {
   id: string;
-  name: string;
+  officialName: string;
   description: string;
   image?: string | null;
   thumbnail?: string | null;

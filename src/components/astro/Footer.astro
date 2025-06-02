@@ -1,3 +1,7 @@
+---
+import InfoBlock from "./InfoBlock.astro";
+---
+
 <footer class="bg-muted/30 mt-16 border-t py-12">
   <div class="container mx-auto px-4">
     <div class="mx-auto max-w-4xl">
@@ -19,41 +23,23 @@
 
       <!-- Key points -->
       <div class="mb-8 grid gap-6 md:grid-cols-3">
-        <div class="text-center">
-          <div
-            class="bg-primary mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-            <span class="text-2xl">🎲</span>
-          </div>
-          <h4 class="mb-2 font-semibold">Physical Games Required</h4>
-          <p class="text-muted-foreground text-sm">
-            You need the actual board game to play. We only provide calculation
-            helpers and tracking tools.
-          </p>
-        </div>
+        <InfoBlock icon="🎲" title="Physical Games Required">
+          You need the actual board game to play. We only provide calculation
+          helpers and tracking tools.
+        </InfoBlock>
 
-        <div class="text-center">
-          <div
-            class="bg-secondary mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-            <span class="text-2xl">🧮</span>
-          </div>
-          <h4 class="mb-2 font-semibold">Calculation Assistant</h4>
-          <p class="text-muted-foreground text-sm">
-            We handle complex math, pricing, and scoring so you can focus on
-            strategy and fun.
-          </p>
-        </div>
+        <InfoBlock
+          className="bg-secondary"
+          icon="🧮"
+          title="Calculation Assistant">
+          We handle complex math, pricing, and scoring so you can focus on
+          strategy and fun.
+        </InfoBlock>
 
-        <div class="text-center">
-          <div
-            class="bg-accent mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-            <span class="text-2xl">👥</span>
-          </div>
-          <h4 class="mb-2 font-semibold">Social Experience</h4>
-          <p class="text-muted-foreground text-sm">
-            Designed to enhance face-to-face gaming, not replace the social
-            interaction of board games.
-          </p>
-        </div>
+        <InfoBlock className="bg-accent" icon="👥" title="Social Experience">
+          Designed to enhance face-to-face gaming, not replace the social
+          interaction of board games.
+        </InfoBlock>
       </div>
 
       <!-- Legal disclaimer -->
@@ -74,7 +60,9 @@
             by
             <a
               href="https://boardgamegeek.com"
-              class="hover:text-foreground font-medium transition-colors">
+              class="hover:text-foreground font-medium underline transition-colors"
+              target="_blank"
+              rel="noopener noreferrer">
               BoardGameGeek
             </a>. GameKeeper is an independent project and is not affiliated
             with BoardGameGeek.

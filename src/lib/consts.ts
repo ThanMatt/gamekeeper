@@ -24,7 +24,7 @@ export const SUPPORTED_GAMES: BoardGameManifest[] = [
 ];
 
 export const EMPTY_BOARD_GAME_DATA = {
-  name: "Name unavailable",
+  officialName: "Name unavailable",
   description: "Description unavailable",
   image: null,
   thumbnail: null,

@@ -27,52 +27,6 @@ const { boardGame, goBackHref = "/" } = Astro.props;
     </div>
     <div></div>
   </div>
-  <div class="mb-8 flex flex-col gap-8">
-    <p class="text-muted-foreground line-clamp-2">
-      {boardGame.data.description}
-    </p>
 
-    <div class="grid gap-6 md:grid-cols-2">
-      <div class="text-center">
-        <div
-          class="bg-primary mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-          <span class="text-2xl">🎯</span>
-        </div>
-        <h4 class="mb-2 font-semibold">Complexity</h4>
-        <p class="text-muted-foreground text-sm">
-          {boardGame.data.name} has a complexity of <span class="font-bold">
-            {boardGame.data.weight.toFixed(1)} / 5
-          </span>
-        </p>
-      </div>
-
-      <div class="text-center">
-        <div
-          class="bg-secondary mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full">
-          <span class="text-2xl">🏆</span>
-        </div>
-        <h4 class="mb-2 font-semibold">BGG Rank</h4>
-        <p class="text-muted-foreground text-sm">
-          {boardGame.data.name} is ranked <span class="font-bold">
-            #{boardGame.data.rank}
-          </span> in BoardGameGeek
-        </p>
-      </div>
-    </div>
-    <div class="mt-6 border-t pt-4">
-      <div
-        class="text-muted-foreground flex items-center justify-center gap-2 text-sm">
-        <span>📊 Data provided by</span>
-        <a
-          href=`https://boardgamegeek.com/boardgame/${boardGame.data.id}`
-          class="hover:text-foreground font-medium underline transition-colors"
-          target="_blank"
-          rel="noopener noreferrer">
-          BoardGameGeek
-        </a>
-      </div>
-    </div>
-
-    <slot />
-  </div>
+  <slot />
 </Layout>
