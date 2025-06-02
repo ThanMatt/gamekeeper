@@ -3,5 +3,24 @@
   command = "pnpm run check && pnpm run test:run && pnpm run build"
   publish = "dist"
 
+# :: Deploy Preview context - applies to all PRs
+[context.deploy-preview]
+  # Skip build for multiple branch patterns
+  ignore = '''
+    # Check if branch starts with chore/, docs/, or test/
+    if [[ $HEAD =~ ^(chore|docs|test)/ ]]; then
+      echo "Skipping deploy preview for branch: $HEAD"
+      exit 0
+    else
+      echo "Building deploy preview for branch: $HEAD"
+      exit 1
+    fi
+  '''
+
 [build.environment]
-  NPM_FLAGS = "--prefix=/dev/null"
+  NPM_FLAGS = "--production"
+
+# :: Production context (normal builds)
+[context.production]
+  command = "pnpm run check && pnpm run test:run && pnpm run build"
+  publish = "dist"
