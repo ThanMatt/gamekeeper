@@ -1,4 +1,4 @@
-import { defineCollection, z, type RenderedContent } from "astro:content";
+import { defineCollection, z } from "astro:content";
 
 import { fetchBGGGameData } from "@/api";
 import { EMPTY_BOARD_GAME_DATA, SUPPORTED_GAMES } from "@/lib/consts";
@@ -72,14 +72,5 @@ const boardGames = defineCollection({
   },
   schema: boardGameSchema,
 });
-
-export type BoardGameCollection = {
-  id: string;
-  body?: string;
-  collection: "boardGames";
-  data: BoardGame;
-  rendered?: RenderedContent;
-  filePath?: string;
-};
 
 export const collections = { boardGames };

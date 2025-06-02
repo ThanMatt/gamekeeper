@@ -1,4 +1,4 @@
-import { z } from "astro:content";
+import { z, type RenderedContent } from "astro:content";
 
 import { boardGameSchema, boardGamePluginSchema } from "./content.config";
 
@@ -43,4 +43,13 @@ export type Framework = "react" | "vue" | "svelte" | "astro";
 export type ComponentRegistryEntry = {
   component: any; // :: Generic to accept any framework component
   framework: Framework;
+};
+
+export type BoardGameCollection = {
+  id: string;
+  body?: string;
+  collection: "boardGames";
+  data: BoardGame;
+  rendered?: RenderedContent;
+  filePath?: string;
 };
