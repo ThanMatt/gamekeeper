@@ -1,6 +1,6 @@
 [build]
   # :: Run linting, testing, then build
-  command = "pnpm run check && pnpm run test:run"
+  command = "pnpm run check && pnpm run test:run && pnpm run build"
   publish = "dist"
 
 # :: Deploy Preview context - applies to all PRs
