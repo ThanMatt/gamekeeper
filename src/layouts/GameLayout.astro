@@ -4,6 +4,12 @@ import { ChevronLeft } from "@lucide/astro";
 import { Button } from "@/components/react/ui/button";
 import { H2 } from "@/components/react/ui/typography";
 import Layout from "@/layouts/Layout.astro";
+import type { BoardGameCollection } from "@/types";
+
+interface Props {
+  boardGame: BoardGameCollection;
+  goBackHref?: string;
+}
 
 const { boardGame, goBackHref = "/" } = Astro.props;
 ---
@@ -21,5 +27,6 @@ const { boardGame, goBackHref = "/" } = Astro.props;
     </div>
     <div></div>
   </div>
+
   <slot />
 </Layout>

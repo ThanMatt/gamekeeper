@@ -1,4 +1,4 @@
-import { defineCollection, z, type RenderedContent } from "astro:content";
+import { defineCollection, z } from "astro:content";
 
 import { fetchBGGGameData } from "@/api";
 import { EMPTY_BOARD_GAME_DATA, SUPPORTED_GAMES } from "@/lib/consts";
@@ -18,6 +18,7 @@ export const boardGamePluginSchema = z.object({
 
 export const boardGameSchema = z.object({
   id: z.string(),
+  officialName: z.string(),
   name: z.string(),
   description: z.string(),
   image: z.string().optional().nullable(),
@@ -45,7 +46,7 @@ const boardGames = defineCollection({
 
         supportedGames.push({
           ...boardGame,
-          slug: slugify(boardGame.name, boardGame.id),
+          slug: slugify(game.name, boardGame.id),
           plugins: game.plugins
             ? game.plugins.map((plugin) => {
                 return {
@@ -72,14 +73,5 @@ const boardGames = defineCollection({
   },
   schema: boardGameSchema,
 });
-
-export type BoardGameCollection = {
-  id: string;
-  body?: string;
-  collection: "boardGames";
-  data: BoardGame;
-  rendered?: RenderedContent;
-  filePath?: string;
-};
 
 export const collections = { boardGames };
