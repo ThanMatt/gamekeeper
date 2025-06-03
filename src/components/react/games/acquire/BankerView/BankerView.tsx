@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 
 import { TrendingUp, Package } from "lucide-react";
 
-import { ChainCard } from "../ChainCard";
 import { createInitialChains } from "../consts";
+
+import { ChainCard } from "./ChainCard";
 
 import type { Chain } from "../types";
 

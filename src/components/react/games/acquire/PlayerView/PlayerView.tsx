@@ -4,10 +4,11 @@ import { TrendingUp, Package } from "lucide-react";
 
 import { H3, H2 } from "@/components/react/ui/typography";
 
-import { ChainCard } from "./ChainCard";
-import { initialChains } from "./consts";
+import { initialChains } from "../consts";
 
-import type { GameState } from "./types";
+import { PlayerChainCard } from "./PlayerChainCard.tsx";
+
+import type { GameState } from "../types";
 
 const STORAGE_KEY = "acquire-player-view-state";
 export const PlayerView = () => {
@@ -105,7 +106,7 @@ export const PlayerView = () => {
 
         <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
           {chains.map((chain, index) => (
-            <ChainCard
+            <PlayerChainCard
               key={chain.name}
               chain={chain}
               index={index}
