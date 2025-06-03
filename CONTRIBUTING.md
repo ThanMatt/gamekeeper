@@ -9,6 +9,11 @@ so you can focus on strategy. We enhance games, we don't replace them! 🎯
 
 ## Quick Start
 
+### Prerequisites
+
+- **Node.js** (v18 or higher)
+- **pnpm** (recommended package manager)
+
 ```bash
 git clone https://github.com/ThanMatt/gamekeeper.git
 cd gamekeeper
