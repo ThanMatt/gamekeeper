@@ -96,12 +96,7 @@ Play the actual game with your digital companion. Does it make the game more fun
 
 - Complex scoring (Wingspan, Terraforming Mars)
 - Resource tracking (Power Grid, Scythe)
-- Money/stock calculations (Acquire, Modern Art)
-
-❌ **Probably skip:**
-
-- Simple games that don't need digital help
-- Games where bookkeeping IS the fun
+- Money/stock calculations (Acquire, Modern Art)#
 
 ## Need Help?
 
