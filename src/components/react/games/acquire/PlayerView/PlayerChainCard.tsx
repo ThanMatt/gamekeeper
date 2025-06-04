@@ -1,10 +1,8 @@
-import { useState } from "react";
-
 import { Minus, Plus } from "lucide-react";
 
 import { classicPrices } from "../consts";
 
-import type { Chain, Prices, Tier } from "../types";
+import type { Chain, PlayerChain, Prices, Tier } from "../types";
 
 type PlayerChainCardProps = {
   chain: Chain;
@@ -13,6 +11,8 @@ type PlayerChainCardProps = {
   setChains: React.Dispatch<React.SetStateAction<Chain[]>>;
   onDeductBalance: (price: number) => void;
   playerBalance: number;
+  playerChain: PlayerChain | null;
+  setPlayerChain: React.Dispatch<React.SetStateAction<PlayerChain | null>>;
 };
 
 export const PlayerChainCard = ({
@@ -22,8 +22,9 @@ export const PlayerChainCard = ({
   setChains,
   onDeductBalance,
   playerBalance,
+  playerChain,
+  setPlayerChain,
 }: PlayerChainCardProps) => {
-  const [boughtStocks, setBoughtStocks] = useState(0);
   const getPrice = (tier: Tier, tiles: Prices) => {
     if (tiles < 2) return 0;
     const tierPrices = classicPrices[tier];
@@ -80,15 +81,6 @@ export const PlayerChainCard = ({
     });
   };
 
-  const toggleActive = (index: number) => {
-    setChains((prevChains) => {
-      const newChains = [...prevChains];
-      if (newChains[index].tiles > 0) {
-        newChains[index].active = !newChains[index].active;
-      }
-      return newChains;
-    });
-  };
   const stockPrice = getPrice(chain.tier, chain.tiles);
   const majorityBonus = stockPrice * 10;
   const minorityBonus = stockPrice * 5;
@@ -103,7 +95,14 @@ export const PlayerChainCard = ({
 
   const buyStock = (index: number) => {
     if (!isDisabled) {
-      setBoughtStocks(boughtStocks + 1);
+      setPlayerChain({
+        ...playerChain,
+        [chain.name]: {
+          boughtStocks: playerChain?.[chain.name]
+            ? playerChain?.[chain.name].boughtStocks + 1
+            : 1,
+        },
+      });
       setChains((prevChains) => {
         const newChains = [...prevChains];
         newChains[index].stock = Math.max(
@@ -120,6 +119,10 @@ export const PlayerChainCard = ({
       });
     }
   };
+
+  const boughtStocks = playerChain?.[chain.name]
+    ? playerChain[chain.name].boughtStocks
+    : 0;
 
   return (
     <div
@@ -226,18 +229,18 @@ export const PlayerChainCard = ({
             <Plus className="mx-auto h-4 w-4" />
           </button>
           <button
-            onClick={() => toggleActive(index)}
+            onClick={() => buyStock(index)}
             className={`flex-1 rounded-lg px-3 py-2 text-xs font-medium transition-all ${
-              chain.active
+              chain.active && chain.stock > 0
                 ? isYellow
-                  ? "bg-gray-900/40"
-                  : "bg-white/40"
+                  ? "bg-gray-900/30 hover:bg-gray-900/40"
+                  : "bg-white/30 hover:bg-white/40"
                 : isYellow
-                  ? "bg-gray-900/20"
-                  : "bg-white/20"
-            } ${textColor}`}
+                  ? "bg-gray-900/10"
+                  : "bg-white/10"
+            } ${textColor} ${isDisabled ? "cursor-not-allowed opacity-50" : ""}`}
           >
-            {chain.active ? "Active" : "Inactive"}
+            Sell Stock
           </button>
         </div>
 
