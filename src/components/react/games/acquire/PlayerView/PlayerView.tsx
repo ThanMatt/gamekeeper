@@ -8,12 +8,13 @@ import { initialChains } from "../consts";
 
 import { PlayerChainCard } from "./PlayerChainCard.tsx";
 
-import type { GameState } from "../types";
+import type { PlayerChain, PlayerGameState } from "../types";
 
 const STORAGE_KEY = "acquire-player-view-state";
 export const PlayerView = () => {
   const [gameMode, setGameMode] = useState<"classic" | "tycoon">("classic");
   const [balance, setBalance] = useState(6000);
+  const [playerChain, setPlayerChain] = useState<PlayerChain | null>(null);
 
   const [chains, setChains] = useState(initialChains);
 
@@ -21,10 +22,11 @@ export const PlayerView = () => {
     try {
       const savedState = localStorage.getItem(STORAGE_KEY);
       if (savedState) {
-        const parsedState: GameState = JSON.parse(savedState);
+        const parsedState: PlayerGameState = JSON.parse(savedState);
         setChains(parsedState.chains);
         setGameMode(parsedState.gameMode);
         setBalance(parsedState.balance ?? 6000);
+        setPlayerChain(parsedState.playerChain);
       }
     } catch (error) {
       console.warn("Failed to load saved game state: ", error);
@@ -33,10 +35,11 @@ export const PlayerView = () => {
 
   useEffect(() => {
     try {
-      const gameState: GameState = {
+      const gameState: PlayerGameState = {
         chains,
         gameMode,
         balance,
+        playerChain,
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
     } catch (error) {
@@ -49,6 +52,7 @@ export const PlayerView = () => {
       setChains(initialChains.map((chain) => ({ ...chain })));
       setBalance(6000);
       setGameMode("classic");
+      setPlayerChain(null);
 
       try {
         localStorage.removeItem(STORAGE_KEY);
@@ -114,6 +118,8 @@ export const PlayerView = () => {
               gameMode={gameMode}
               onDeductBalance={handleDeductBalance}
               playerBalance={balance}
+              playerChain={playerChain}
+              setPlayerChain={setPlayerChain}
             />
           ))}
         </div>
