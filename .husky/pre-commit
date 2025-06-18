@@ -3,7 +3,7 @@ pnpm exec lint-staged
 
 # :: Optional: Run type checking
 echo "🔍 Running TypeScript type check..."
-pnpm exec tsc --noEmit
+pnpm run typecheck
 
 echo "✅ Pre-commit checks passed!"
 pnpm test --passWithNoTests
