@@ -295,6 +295,7 @@ export default [
       "public/**",
       "*.min.js",
       "coverage/**",
+      "dev-dist/**",
     ],
   },
 ];
