@@ -30,6 +30,8 @@ export default defineConfig({
             type: "image/svg+xml",
           },
         ],
+        theme_color: "#121212",
+        background_color: "#121212"
       },
     }),
   ],
