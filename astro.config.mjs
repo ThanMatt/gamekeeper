@@ -22,6 +22,15 @@ export default defineConfig({
       workbox: {
         navigateFallback: "/404",
       },
+      manifest: {
+        icons: [
+          {
+            src: "/favicon.svg",
+            sizes: "any",
+            type: "image/svg+xml",
+          },
+        ],
+      },
     }),
   ],
 
