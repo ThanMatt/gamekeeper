@@ -19,6 +19,9 @@ export default defineConfig({
       devOptions: {
         enabled: true,
       },
+      workbox: {
+        navigateFallback: "/404",
+      },
     }),
   ],
 

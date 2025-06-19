@@ -15,7 +15,13 @@ const { title = "GameKeeper", description, ogTitle } = Astro.props;
     <div class="flex-1 px-4 lg:container lg:mx-auto">
       <header class="flex-shrink-0">
         <div class="py-16 text-center">
-          <H1>GameKeeper</H1>
+          <div class="relative inline-block">
+            <H1>GameKeeper</H1>
+            <div
+              class="absolute top-4 -right-6 h-2 w-2 animate-pulse rounded-full bg-green-500"
+              id="online-indicator">
+            </div>
+          </div>
           <Lead>Your board game companion</Lead>
         </div>
       </header>
@@ -28,6 +34,28 @@ const { title = "GameKeeper", description, ogTitle } = Astro.props;
 
     <!-- Footer -->
     <Footer />
+
+    <script>
+      function updateOnlineIndicator() {
+        const indicator = document.getElementById("online-indicator");
+        if (!indicator) return;
+
+        if (navigator.onLine) {
+          indicator.className =
+            "absolute top-4 -right-6 h-2 w-2 animate-pulse rounded-full bg-green-500";
+        } else {
+          indicator.className =
+            "absolute top-4 -right-6 h-2 w-2 animate-pulse rounded-full bg-red-500";
+        }
+      }
+
+      // :: Update on page load
+      updateOnlineIndicator();
+
+      // :: Listen for online/offline events
+      window.addEventListener("online", updateOnlineIndicator);
+      window.addEventListener("offline", updateOnlineIndicator);
+    </script>
   </body>
 </html>
 
