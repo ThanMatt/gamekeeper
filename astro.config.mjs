@@ -17,7 +17,7 @@ export default defineConfig({
     svelte(),
     AstroPWA({
       devOptions: {
-        enabled: true,
+        enabled: false, // :: Can be toggled to true for testing PWA
       },
       workbox: {
         navigateFallback: "/404",
