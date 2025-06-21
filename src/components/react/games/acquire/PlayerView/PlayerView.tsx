@@ -2,30 +2,31 @@ import { useEffect, useState } from "react";
 
 import { TrendingUp, Package } from "lucide-react";
 
-import { createInitialChains } from "../consts";
+import { H3, H2 } from "@/components/react/ui/typography";
 
-import { ChainCard } from "./ChainCard";
+import { initialChains } from "../consts";
 
-import type { Chain } from "../types";
+import { PlayerChainCard } from "./PlayerChainCard.tsx";
 
-const STORAGE_KEY = "acquire-banker-view-state";
+import type { PlayerChain, PlayerGameState } from "../types";
 
-interface GameState {
-  chains: Chain[];
-  gameMode: "classic" | "tycoon";
-}
-
-export const BankerView = () => {
+const STORAGE_KEY = "acquire-player-view-state";
+export const PlayerView = () => {
   const [gameMode, setGameMode] = useState<"classic" | "tycoon">("classic");
-  const [chains, setChains] = useState(createInitialChains);
+  const [balance, setBalance] = useState(6000);
+  const [playerChain, setPlayerChain] = useState<PlayerChain | null>(null);
+
+  const [chains, setChains] = useState(initialChains);
 
   useEffect(() => {
     try {
       const savedState = localStorage.getItem(STORAGE_KEY);
       if (savedState) {
-        const parsedState: GameState = JSON.parse(savedState);
+        const parsedState: PlayerGameState = JSON.parse(savedState);
         setChains(parsedState.chains);
         setGameMode(parsedState.gameMode);
+        setBalance(parsedState.balance ?? 6000);
+        setPlayerChain(parsedState.playerChain);
       }
     } catch (error) {
       console.warn("Failed to load saved game state: ", error);
@@ -34,9 +35,11 @@ export const BankerView = () => {
 
   useEffect(() => {
     try {
-      const gameState: GameState = {
+      const gameState: PlayerGameState = {
         chains,
         gameMode,
+        balance,
+        playerChain,
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
     } catch (error) {
@@ -46,8 +49,10 @@ export const BankerView = () => {
 
   const resetGame = () => {
     if (confirm("Reset all game data?")) {
-      setChains(createInitialChains());
+      setChains(initialChains.map((chain) => ({ ...chain })));
+      setBalance(6000);
       setGameMode("classic");
+      setPlayerChain(null);
 
       try {
         localStorage.removeItem(STORAGE_KEY);
@@ -55,6 +60,10 @@ export const BankerView = () => {
         console.warn("Failed to clear saved game state: ", error);
       }
     }
+  };
+
+  const handleDeductBalance = (price: number) => {
+    setBalance(balance - price);
   };
 
   // Calculate summary stats
@@ -68,7 +77,7 @@ export const BankerView = () => {
       <div className="mx-auto">
         <h1 className="mb-4 flex items-center justify-center gap-2 text-center text-3xl font-bold">
           <TrendingUp className="h-8 w-8" />
-          Acquire Banker Assistant
+          Acquire Player Assistant
         </h1>
 
         <div className="mb-6 flex justify-center gap-3">
@@ -94,14 +103,23 @@ export const BankerView = () => {
           </button>
         </div>
 
+        <div className="text-center">
+          <H3>Your money</H3>
+          <H2>${balance}</H2>
+        </div>
+
         <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
           {chains.map((chain, index) => (
-            <ChainCard
+            <PlayerChainCard
               key={chain.name}
               chain={chain}
               index={index}
               setChains={setChains}
               gameMode={gameMode}
+              onDeductBalance={handleDeductBalance}
+              playerBalance={balance}
+              playerChain={playerChain}
+              setPlayerChain={setPlayerChain}
             />
           ))}
         </div>

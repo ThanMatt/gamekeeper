@@ -2,21 +2,29 @@ import { Minus, Plus } from "lucide-react";
 
 import { classicPrices } from "../consts";
 
-import type { Chain, Prices, Tier } from "../types";
+import type { Chain, PlayerChain, Prices, Tier } from "../types";
 
-type ChainCardProps = {
+type PlayerChainCardProps = {
   chain: Chain;
   index: number;
   gameMode: "tycoon" | "classic";
   setChains: React.Dispatch<React.SetStateAction<Chain[]>>;
+  onDeductBalance: (price: number) => void;
+  playerBalance: number;
+  playerChain: PlayerChain | null;
+  setPlayerChain: React.Dispatch<React.SetStateAction<PlayerChain | null>>;
 };
 
-export const ChainCard = ({
+export const PlayerChainCard = ({
   chain,
   index,
   gameMode,
   setChains,
-}: ChainCardProps) => {
+  onDeductBalance,
+  playerBalance,
+  playerChain,
+  setPlayerChain,
+}: PlayerChainCardProps) => {
   const getPrice = (tier: Tier, tiles: Prices) => {
     if (tiles < 2) return 0;
     const tierPrices = classicPrices[tier];
@@ -73,22 +81,48 @@ export const ChainCard = ({
     });
   };
 
-  const toggleActive = (index: number) => {
-    setChains((prevChains) => {
-      const newChains = [...prevChains];
-      if (newChains[index].tiles > 0) {
-        newChains[index].active = !newChains[index].active;
-      }
-      return newChains;
-    });
-  };
   const stockPrice = getPrice(chain.tier, chain.tiles);
   const majorityBonus = stockPrice * 10;
   const minorityBonus = stockPrice * 5;
   const isYellow = chain.name === "Tower";
   const textColor = isYellow ? "text-gray-900" : "text-white";
 
-  const boughtStocks = 25 - chain.stock;
+  const isDisabled =
+    !chain.active ||
+    chain.stock === 0 ||
+    (playerBalance !== undefined &&
+      (playerBalance <= 0 || playerBalance < stockPrice));
+
+  const buyStock = (index: number) => {
+    if (!isDisabled) {
+      setPlayerChain({
+        ...playerChain,
+        [chain.name]: {
+          boughtStocks: playerChain?.[chain.name]
+            ? playerChain?.[chain.name].boughtStocks + 1
+            : 1,
+        },
+      });
+      setChains((prevChains) => {
+        const newChains = [...prevChains];
+        newChains[index].stock = Math.max(
+          0,
+          Math.min(25, newChains[index].stock - 1)
+        );
+
+        if (onDeductBalance) {
+          onDeductBalance(
+            getPrice(newChains[index].tier, newChains[index].tiles)
+          );
+        }
+        return newChains;
+      });
+    }
+  };
+
+  const boughtStocks = playerChain?.[chain.name]
+    ? playerChain[chain.name].boughtStocks
+    : 0;
 
   return (
     <div
@@ -195,18 +229,18 @@ export const ChainCard = ({
             <Plus className="mx-auto h-4 w-4" />
           </button>
           <button
-            onClick={() => toggleActive(index)}
+            onClick={() => buyStock(index)}
             className={`flex-1 rounded-lg px-3 py-2 text-xs font-medium transition-all ${
-              chain.active
+              chain.active && chain.stock > 0
                 ? isYellow
-                  ? "bg-gray-900/40"
-                  : "bg-white/40"
+                  ? "bg-gray-900/30 hover:bg-gray-900/40"
+                  : "bg-white/30 hover:bg-white/40"
                 : isYellow
-                  ? "bg-gray-900/20"
-                  : "bg-white/20"
-            } ${textColor}`}
+                  ? "bg-gray-900/10"
+                  : "bg-white/10"
+            } ${textColor} ${isDisabled ? "cursor-not-allowed opacity-50" : ""}`}
           >
-            {chain.active ? "Active" : "Inactive"}
+            Sell Stock
           </button>
         </div>
 
@@ -232,9 +266,7 @@ export const ChainCard = ({
             <Plus className="mx-auto h-4 w-4" />
           </button>
           <button
-            onClick={() =>
-              chain.active && chain.stock > 0 && modifyStock(index, -1)
-            }
+            onClick={() => buyStock(index)}
             className={`flex-1 rounded-lg px-3 py-2 text-xs font-medium transition-all ${
               chain.active && chain.stock > 0
                 ? isYellow
@@ -243,7 +275,7 @@ export const ChainCard = ({
                 : isYellow
                   ? "bg-gray-900/10"
                   : "bg-white/10"
-            } ${textColor} ${!chain.active || chain.stock === 0 ? "cursor-not-allowed opacity-50" : ""}`}
+            } ${textColor} ${isDisabled ? "cursor-not-allowed opacity-50" : ""}`}
           >
             Buy Stock
           </button>
