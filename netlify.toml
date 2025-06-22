@@ -26,6 +26,9 @@
   to = "/:splat"
   status = 301
 
+[build.processing.html]
+  pretty_urls = false
+
 # :: Production context (normal builds)
 [context.production]
   command = "pnpm run check && pnpm run test:run && pnpm run build"
